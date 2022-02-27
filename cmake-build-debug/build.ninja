@@ -74,7 +74,7 @@ build cmake_object_order_depends_target_containers: phony || CMakeFiles/containe
 
 build CMakeFiles/containers.dir/main.cpp.o: CXX_COMPILER__containers_Debug /Users/nscarab/Desktop/clion/projects/containers/main.cpp || cmake_object_order_depends_target_containers
   DEP_FILE = CMakeFiles/containers.dir/main.cpp.o.d
-  FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -mmacosx-version-min=10.14   -Wall -Wextra -Werror --std=c++98 -std=gnu++98
+  FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -mmacosx-version-min=10.14   -Wall -Wextra -Werror --std=c++98 -D_GLIBCXX_USE_CXX11_ABI=0 -std=gnu++98
   OBJECT_DIR = CMakeFiles/containers.dir
   OBJECT_FILE_DIR = CMakeFiles/containers.dir
 

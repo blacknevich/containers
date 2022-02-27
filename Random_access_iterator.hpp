@@ -24,15 +24,17 @@ namespace ft {
         typedef Pointer                                             pointer;
         typedef Reference                                           reference;
         typedef Category                                            iterator_category;
-        //typedef Random_access_iterator<Category, T, Distance,
-        //Pointer, Reference>                                         this_type;
+
+        typedef Random_access_iterator<Category, T, Distance,
+        Pointer, Reference>                                         this_type;
         //================================end typedef================================
 
         //============================constructors==================================
         Random_access_iterator() : arr_(0) {} //default
-        Random_access_iterator(Random_access_iterator const &src)
-                : arr_(src.arr_) {}//copy will it work if just ->
-
+//        Random_access_iterator(Random_access_iterator const &src)
+//                : arr_(src.get_arr()) {}//copy will it work if just ->
+        Random_access_iterator(Random_access_iterator<Category, T, Distance, T*, T&> const &src)
+                : arr_(src.get_arr()) {}//copy will it work if just ->
         Random_access_iterator(pointer src) : arr_(src) {} //pointer constr
         //======================end constructors====================================
 
@@ -41,7 +43,7 @@ namespace ft {
         //============================end destructor================================
 
         //============================assignation====================================
-        Random_access_iterator &operator=(Random_access_iterator const &rhs) {
+        this_type &operator=(Random_access_iterator const &rhs) {
             if (this == &rhs)
                 return *this;
             arr_ = rhs.arr_;
@@ -61,88 +63,88 @@ namespace ft {
         }
 
         // ++it
-        Random_access_iterator operator++() {
+        this_type operator++() {
             ++arr_;
             return (*this);
         }
 
         // it++ does *a++work?
-        Random_access_iterator operator++(int) {
-            Random_access_iterator tmp(*this);
+        this_type operator++(int) {
+            this_type tmp(*this);
             ++arr_;
             return (*this);
         }
 
         // --it
-        Random_access_iterator operator--() {
+        this_type operator--() {
             --arr_;
             return (*this);
         }
 
         // it--
-        Random_access_iterator operator--(int) {
-            Random_access_iterator tmp(*this);
+        this_type operator--(int) {
+            this_type tmp(*this);
             --arr_;
             return (*this);
         }
 
         // it + n
-        Random_access_iterator operator+(difference_type n) const {
-            return Random_access_iterator(arr_ + n);
+        this_type operator+(difference_type n) const {
+            return this_type(arr_ + n);
         }
 
         // n + it - non member
-        friend Random_access_iterator operator+
+        friend this_type operator+
                 (difference_type n,
-                 Random_access_iterator const & rhs) {
+                 this_type const & rhs) {
             return rhs + n;
         }
 
         // it - n
-        Random_access_iterator operator-(difference_type n) const {
-            return Random_access_iterator(arr_ - n);
+        this_type operator-(difference_type n) const {
+            return this_type(arr_ - n);
         }
 
         // it - it - non member
         friend difference_type operator-
-        (Random_access_iterator const & lhs,
-         Random_access_iterator const & rhs) {
+        (this_type const & lhs,
+         this_type const & rhs) {
             return lhs.get_arr() - rhs.get_arr();
         }
 
         // it += n
-        Random_access_iterator operator+=(difference_type n) {
+        this_type operator+=(difference_type n) {
             arr_ += n;
             return (*this);
         }
 
         // it -= n
-        Random_access_iterator operator-=(difference_type n) {
+        this_type operator-=(difference_type n) {
             arr_ -= n;
             return (*this);
         }
 
         // <
-        friend bool operator<(Random_access_iterator const &lhs,
-                              Random_access_iterator const &rhs) {
+        friend bool operator<(this_type const &lhs,
+                              this_type const &rhs) {
             return lhs.arr_ < rhs.arr_;
         }
 
         // >
-        friend bool operator>(Random_access_iterator const &lhs,
-                              Random_access_iterator const &rhs) {
+        friend bool operator>(this_type const &lhs,
+                              this_type const &rhs) {
             return lhs.arr_ > rhs.arr_;
         }
 
         // <=
-        friend bool operator<=(Random_access_iterator const &lhs,
-                               Random_access_iterator const &rhs) {
+        friend bool operator<=(this_type const &lhs,
+                               this_type const &rhs) {
             return lhs.arr_ <= rhs.arr_;
         }
 
         // >=
-        friend bool operator>=(Random_access_iterator const &lhs,
-                               Random_access_iterator const &rhs) {
+        friend bool operator>=(this_type const &lhs,
+                               this_type const &rhs) {
             return lhs.arr_ >= rhs.arr_;
         }
         // it[n]

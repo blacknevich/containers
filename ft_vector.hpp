@@ -36,17 +36,19 @@ namespace ft {
         typedef typename allocator_type::size_type                          size_type;
 
         typedef ft::Random_access_iterator
-                <typename ft::iterator_traits<T*>::iterator_category,
-                        typename ft::iterator_traits<T*>::value_type,
-                        typename ft::iterator_traits<T*>::difference_type,
-                        typename ft::iterator_traits<T*>::pointer,
-                        typename ft::iterator_traits<T*>::reference>        iterator;
+                        <std::random_access_iterator_tag, value_type, ptrdiff_t ,  T*, T&> iterator;
+//                <typename ft::iterator_traits<T*>::iterator_category,
+//                        typename ft::iterator_traits<T*>::value_type,
+//                        typename ft::iterator_traits<T*>::difference_type,
+//                        typename ft::iterator_traits<T*>::pointer,
+//                        typename ft::iterator_traits<T*>::reference>        iterator;
         typedef ft::Random_access_iterator
-                <typename ft::iterator_traits<const T*>::iterator_category,
-                        typename ft::iterator_traits<const T*>::value_type,
-                        typename ft::iterator_traits<const T*>::difference_type,
-                        typename ft::iterator_traits<const T*>::pointer,
-                        typename ft::iterator_traits<const T*>::reference>  const_iterator;
+                <std::random_access_iterator_tag, value_type, ptrdiff_t , const T*, const T&> const_iterator;
+//                <typename ft::iterator_traits<const T*>::iterator_category,
+//                        typename ft::iterator_traits<const T*>::value_type,
+//                        typename ft::iterator_traits<const T*>::difference_type,
+//                        typename ft::iterator_traits<const T*>::pointer,
+//                        typename ft::iterator_traits<const T*>::reference>  const_iterator;
         typedef ft::Reverse_iterator<iterator>                              reverse_iterator;
         typedef ft::Reverse_iterator<const_iterator>                        const_reverse_iterator;
         typedef typename ft::iterator_traits<iterator>::difference_type     difference_type;
@@ -63,7 +65,8 @@ namespace ft {
     public:
         //============================constructors==================================
         explicit Vector (const allocator_type& alloc = allocator_type()) :
-        arr_(0), size_(0), capacity_(0), alloc_(alloc) {} //default
+        arr_(0), size_(0), capacity_(0), alloc_(alloc) {
+        } //default
 
         explicit Vector (
                 size_type n,
@@ -107,8 +110,11 @@ namespace ft {
 
         Vector (const Vector& x)
                 : arr_(0), size_(x.size_), capacity_(x.capacity_), alloc_(x.alloc_) {
-            arr_ = alloc_.allocate(x.size_);
-            this->operator=(x);
+            arr_ = alloc_.allocate(x.capacity_);
+            for (size_type i = 0; i < x.size_; ++i) {
+                alloc_.construct(arr_ + i, x[i]);
+            }
+            //this->operator=(x);
         }//copy
         //======================end constructors====================================
 
@@ -164,28 +170,19 @@ namespace ft {
         }
 
         reverse_iterator rbegin() {
-        if (size_ == 0)
-            return reverse_iterator(iterator(arr_));
-        else
             return reverse_iterator(iterator(arr_ + size_ - 1));
         }
 
         const_reverse_iterator rbegin() const {
-            if (size_ == 0)
-                return const_reverse_iterator(const_iterator(arr_));
             return const_reverse_iterator(const_iterator(arr_ + size_ - 1));
         }
 
         reverse_iterator rend() {
-            if (size_ == 0)
-                return reverse_iterator(iterator(arr_));
             return reverse_iterator(iterator(arr_ - 1));
 
         }
 
         const_reverse_iterator rend() const {
-            if (size_ == 0)
-                return const_reverse_iterator(const_iterator(arr_));
             return const_reverse_iterator(const_iterator(arr_ - 1));
         }
         //==========================end_iterators==================================
@@ -209,21 +206,21 @@ namespace ft {
                     alloc_.destroy(arr_ + i);
                 size_ = n;
             }
-            else
-                insert(end(), n, val);
-//            else if (n <= capacity_) { //construct more elements
-//                for (size_type i = size_; i < n; ++i)
-//                    alloc_.construct(arr_ + i, val);
-//                size_ = n;
-//            }
-//            else { //allocate more space and construct
-//               if (2 * size_ > n && 2 * size_ <= max_size())
-//                   reserve(2 * size_);
-//               else reserve(n);
-//                for (size_type i = size_; i < n; ++i)
-//                    alloc_.construct(arr_ + i, val);
-//                size_ = n;
-//            }
+//            else
+//                insert(end(), n, val);
+            else if (n <= capacity_) { //construct more elements
+                for (size_type i = size_; i < n; ++i)
+                    alloc_.construct(arr_ + i, val);
+                size_ = n;
+            }
+            else { //allocate more space and construct
+               if (2 * size_ > n && 2 * size_ <= max_size())
+                   reserve(2 * size_);
+               else reserve(n);
+                for (size_type i = size_; i < n; ++i)
+                    alloc_.construct(arr_ + i, val);
+                size_ = n;
+            }
         }
 
         size_type capacity() const {
@@ -237,9 +234,9 @@ namespace ft {
         void reserve (size_type n) {
             if (n <= capacity_)
                 return;
-            if (n > max_size()) {
-                throw FtLengthError();
-            }
+//            if (n > max_size()) {
+//                throw FtLengthError();
+//            }
             pointer tmp_arr;
 
             tmp_arr = alloc_.allocate(n);
@@ -298,13 +295,20 @@ namespace ft {
                         typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0
                 )
         {
+            Vector backup(first, last);
+            difference_type size_new = ft::distance(first, last);
+
             clear();
-            insert(begin(), first, last);
+            reserve(size_new);
+            insert(begin(), backup.begin(), backup.end());
         } //range
 
         void assign (size_type n, const value_type& val) {
+            value_type backup(val);
+
             clear();
-            insert(begin(), n, val);
+            reserve(n);
+            insert(begin(), n, backup);
         } //fill
 
         void push_back (const value_type& val) {
@@ -326,46 +330,50 @@ namespace ft {
 
             if (n == 0)
                 return position;
-            if (size_ + n > capacity_) {
-                if (size_ + n > max_size()) {
-                    throw FtLengthError();
-                }
-                //new capacity is 2x or size + n
-                size_type new_capacity;
-                if (size_ > n && 2 * size_ <= max_size())
-                    new_capacity = 2 * size_;
-                else new_capacity = size_ + n;
+            if (size_ + n > max_size()) {
+                throw FtLengthError();
+            }
+            //new capacity is 2x or size + n
+            size_type new_capacity;
+            if (size_ + n <= capacity_)
+                new_capacity = capacity_;
+            if (size_ > n && 2 * size_ <= max_size())
+                new_capacity = 2 * size_;
+            else new_capacity = size_ + n;
 
-                pointer tmp_arr;
-                tmp_arr = alloc_.allocate(new_capacity);
+            pointer tmp_arr;
+            tmp_arr = alloc_.allocate(new_capacity);
 
-                //first part move
-                if (position_index > 0)
-                    std::memmove(tmp_arr, arr_, sizeof(value_type) * position_index);
+            //first part move
+            if (position_index > 0)
+                std::memmove(tmp_arr, arr_, sizeof(value_type) * position_index);
+//            for (size_type i = 0; i < position_index; ++i)
+//                alloc_.construct(tmp_arr + i, arr_[i]);
 
-                //second part move
-                if (size_ - position_index > 0)
+            //second part move
+            if (size_ - position_index > 0)
                 std::memmove(tmp_arr + position_index + n, arr_ + position_index,
                              sizeof(value_type) * (size_ - position_index));
+//            for (size_type i = 0; i < size_ - position_index; ++i)
+//                alloc_.construct(tmp_arr + position_index + n + i, arr_ + position_index + i);
 
-                //fill between
-                for (size_type i = 0; i < n; ++i)
-                    alloc_.construct(arr_ + position_index + i, val);
+            //fill between
+            for (size_type i = 0; i < n; ++i)
+                alloc_.construct(tmp_arr + position_index + i, val);
 
-                alloc_.deallocate(arr_, capacity_);
-                capacity_ = new_capacity;
-                arr_ = tmp_arr;
-            }
-            else {
-                //second part move
-                if (size_ - position_index > 0)
-                std::memmove(arr_ + position_index + n, arr_ + position_index,
-                             sizeof(value_type) * (size_ - position_index));
-
-                //fill between
-                for (size_type i = 0; i < n; ++i)
-                    alloc_.construct(arr_ + position_index + i, val);
-            }
+            alloc_.deallocate(arr_, capacity_);
+            capacity_ = new_capacity;
+            arr_ = tmp_arr;
+//            else {
+//                //second part move
+//                if (size_ - position_index > 0)
+//                std::memmove(arr_ + position_index + n, arr_ + position_index,
+//                             sizeof(value_type) * (size_ - position_index));
+//
+//                //fill between
+//                for (size_type i = 0; i < n; ++i)
+//                    alloc_.construct(arr_ + position_index + i, val);
+//            }
             size_ += n;
             return position;
         }; //fill
@@ -383,42 +391,49 @@ namespace ft {
 
             if (n == 0)
                 return position;
-            if (size_ + n > capacity_) {
-                if (size_ + n > max_size()) {
-                    throw FtLengthError();
-                }
-                pointer tmp_arr;
+            if (size_ + n > max_size()) {
+                throw FtLengthError();
+            }
+            pointer tmp_arr;
 
-                //new capacity is 2x or size + n
-                size_type new_capacity;
-                if (size_ > n && 2 * size_ <= max_size())
-                    new_capacity = 2 * size_;
-                else new_capacity = size_ + n;
+            //new capacity is 2x or size + n
+            size_type new_capacity;
+            if (size_ + n <= capacity_)
+                new_capacity = capacity_;
+            else if (size_ > n && 2 * size_ <= max_size())
+                new_capacity = 2 * size_;
+            else new_capacity = size_ + n;
 
-                tmp_arr = alloc_.allocate(new_capacity);
+            tmp_arr = alloc_.allocate(new_capacity);
 
-                //first part move
-                if (position_index > 0)
-                    std::memmove(tmp_arr, arr_, sizeof(value_type) * position_index);
+            //first part move
+            if (position_index > 0)
+                std::memmove(tmp_arr, arr_, sizeof(value_type) * position_index);
+//            for (size_type i = 0; i < position_index; ++i)
+//                alloc_.construct(tmp_arr + i, arr_[i]);
 
-                //second part move
+            //second part move
+            if (size_ - position_index > 0)
                 std::memmove(tmp_arr + position_index + n, arr_ + position_index,
-                             sizeof(value_type) * (size_ - position_index));
+                         sizeof(value_type) * (size_ - position_index));
+//            for (size_type i = 0; i < size_ - position_index; ++i)
+//                alloc_.construct(tmp_arr + position_index + n + i, arr_ + position_index + i);
 
-                //fill between
-                std::copy(first, last, tmp_arr + position_index);
-                alloc_.deallocate(arr_, capacity_);
-                capacity_ = new_capacity;
-                arr_ = tmp_arr;
-            }
-            else {
-                //second part move
-                std::memmove(arr_ + position_index + n, arr_ + position_index,
-                             sizeof(value_type) * (size_ - position_index));
-
-                //fill between
-                std::copy(first, last, arr_ + position_index);
-            }
+            //fill between
+            std::copy(first, last, tmp_arr + position_index);
+//            for (size_type i = 0; i < n; ++i)
+//                alloc_.construct(tmp_arr + position_index + i, *(first + i));
+            alloc_.deallocate(arr_, capacity_);
+            capacity_ = new_capacity;
+            arr_ = tmp_arr;
+//            else {
+//                //second part move
+//                std::memmove(arr_ + position_index + n, arr_ + position_index,
+//                             sizeof(value_type) * (size_ - position_index));
+//
+//                //fill between
+//                std::copy(first, last, arr_ + position_index);
+//            }
             size_ += n;
             return position;
         };
@@ -518,6 +533,11 @@ namespace ft {
     template <class T, class Alloc>
     bool operator>= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs) {
         return !(lhs < rhs);
+    }
+
+    template <class T, class Alloc>
+    void swap (Vector<T,Alloc>& x, Vector<T,Alloc>& y) {
+        x.swap(y);
     }
     //==============================end non member functions=========================
 }
