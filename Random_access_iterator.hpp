@@ -258,21 +258,21 @@ namespace ft {
         return rhs.get_arr() - lhs.get_arr();
     }
 
-    // distance(it, it)
-    template< class InputIt >
-    typename ft::iterator_traits<InputIt>::difference_type distance
-            (
-                    InputIt first,
-                    InputIt last
-            )
-    {
-        typename ft::iterator_traits<InputIt>::difference_type count = 0;
-        while (first != last) {
-            ++first;
-            ++count;
-        }
-        return (count);
-    }
+//    // distance(it, it)
+//    template< class InputIt >
+//    typename ft::iterator_traits<InputIt>::difference_type distance
+//            (
+//                    InputIt first,
+//                    InputIt last
+//            )
+//    {
+//        typename ft::iterator_traits<InputIt>::difference_type count = 0;
+//        while (first != last) {
+//            ++first;
+//            ++count;
+//        }
+//        return (count);
+//    }
 }
 
 #endif //RANDOM_ACCESS_ITERATOR_HPP

@@ -91,7 +91,7 @@ bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
         ++first1;
         ++first2;
     }
-    return (first2!=last2); //if 1st range is over but 2nd not 1st is less(true)
+    return (first2!=last2); //if 1st range is over but 2nd is not => 1st is less(true)
 }
 //====================lexicographical compare================================
 }

@@ -36,19 +36,19 @@ namespace ft {
         typedef typename allocator_type::size_type                          size_type;
 
         typedef ft::Random_access_iterator
-                        <std::random_access_iterator_tag, value_type, ptrdiff_t ,  T*, T&> iterator;
-//                <typename ft::iterator_traits<T*>::iterator_category,
-//                        typename ft::iterator_traits<T*>::value_type,
-//                        typename ft::iterator_traits<T*>::difference_type,
-//                        typename ft::iterator_traits<T*>::pointer,
-//                        typename ft::iterator_traits<T*>::reference>        iterator;
+//                        <std::random_access_iterator_tag, value_type, ptrdiff_t ,  T*, T&> iterator;
+                <typename ft::iterator_traits<T*>::iterator_category,
+                        typename ft::iterator_traits<T*>::value_type,
+                        typename ft::iterator_traits<T*>::difference_type,
+                        typename ft::iterator_traits<T*>::pointer,
+                        typename ft::iterator_traits<T*>::reference>        iterator;
         typedef ft::Random_access_iterator
-                <std::random_access_iterator_tag, value_type, ptrdiff_t , const T*, const T&> const_iterator;
-//                <typename ft::iterator_traits<const T*>::iterator_category,
-//                        typename ft::iterator_traits<const T*>::value_type,
-//                        typename ft::iterator_traits<const T*>::difference_type,
-//                        typename ft::iterator_traits<const T*>::pointer,
-//                        typename ft::iterator_traits<const T*>::reference>  const_iterator;
+//                <std::random_access_iterator_tag, value_type, ptrdiff_t , const T*, const T&> const_iterator;
+                <typename ft::iterator_traits<const T*>::iterator_category,
+                        typename ft::iterator_traits<const T*>::value_type,
+                        typename ft::iterator_traits<const T*>::difference_type,
+                        typename ft::iterator_traits<const T*>::pointer,
+                        typename ft::iterator_traits<const T*>::reference>  const_iterator;
         typedef ft::Reverse_iterator<iterator>                              reverse_iterator;
         typedef ft::Reverse_iterator<const_iterator>                        const_reverse_iterator;
         typedef typename ft::iterator_traits<iterator>::difference_type     difference_type;
@@ -87,12 +87,12 @@ namespace ft {
         Vector (
                 InputIterator first, InputIterator last,
                 const allocator_type& alloc = allocator_type(),
-                typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0
+                typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type = 0
         ) : arr_(0), size_(0), capacity_(0), alloc_(alloc) {
             //typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type = 0
             //std::enable_if_t<std::is_base_of<std::input_iterator_tag,
             //typename std::iterator_traits<InputIterator>::iterator_category>::value, int> = 0>
-            capacity_ = ft::distance(first, last);
+            capacity_ = std::distance(first, last);
             size_ = capacity_;
 
             try {
@@ -292,11 +292,11 @@ namespace ft {
                 (
                         InputIterator first,
                         InputIterator last,
-                        typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0
+                        typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type = 0
                 )
         {
             Vector backup(first, last);
-            difference_type size_new = ft::distance(first, last);
+            difference_type size_new = std::distance(first, last);
 
             clear();
             reserve(size_new);
@@ -328,7 +328,7 @@ namespace ft {
 
             size_type position_index = (position - begin()); //insert before
 
-            if (n == 0)
+            if (n <= 0)
                 return position;
             if (size_ + n > max_size()) {
                 throw FtLengthError();
@@ -337,7 +337,7 @@ namespace ft {
             size_type new_capacity;
             if (size_ + n <= capacity_)
                 new_capacity = capacity_;
-            if (size_ > n && 2 * size_ <= max_size())
+            else if (size_ > n && 2 * size_ <= max_size())
                 new_capacity = 2 * size_;
             else new_capacity = size_ + n;
 
@@ -383,13 +383,13 @@ namespace ft {
                 iterator position,
                 InputIterator first,
                 InputIterator last,
-                typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0
+                typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type = 0
         )
         {
             size_type position_index = position - begin(); //insert before
-            size_type n = ft::distance(first, last);
+            size_type n = std::distance(first, last);
 
-            if (n == 0)
+            if (n <= 0 || (n > 0 && size_ > std::numeric_limits<size_type>::max() - n))
                 return position;
             if (size_ + n > max_size()) {
                 throw FtLengthError();
@@ -443,11 +443,14 @@ namespace ft {
             if (size_ == 0)
                 return (iterator(arr_+ span));
             alloc_.destroy(arr_ + span);
+            --size_;
             std::memmove(arr_ + span, arr_ + span + 1, sizeof(value_type) * (size_ - span));
             return (iterator(arr_+ span));
         }
 
         iterator erase (iterator first, iterator last) {
+            if (std::distance(first, last) < 0)
+                return arr_;
             difference_type span = first - begin();
             while (first != last) {
                 erase(first);
@@ -464,6 +467,7 @@ namespace ft {
         }
 
         void clear() {
+
             if (arr_ != 0) {
                 for (size_type i = 0; i < size_; ++i)
                     alloc_.destroy(arr_ + i);
