@@ -8,10 +8,8 @@
 #include <limits> // ?numeric_limit=
 #include "ft_vector.hpp"
 
-//#define lib ft
-//#define con Vector
-#define lib std
-#define con vector
+#define lib ft
+#define con Vector
 class Test {
 public:
     Test() : some_(0) {
