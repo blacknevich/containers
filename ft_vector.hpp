@@ -6,7 +6,7 @@
 #define FT_VECTOR_HPP
 
 //==================================lib includes===================================
-#include <iostream>
+//#include <iostream>
 #include <cstddef> // size_t , ?ptrdiff_t
 #include <memory> // allocator
 #include <exception> // exception
@@ -87,9 +87,9 @@ namespace ft {
         Vector (
                 InputIterator first, InputIterator last,
                 const allocator_type& alloc = allocator_type(),
-                typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type = 0
+                typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0
         ) : arr_(0), size_(0), capacity_(0), alloc_(alloc) {
-            //typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type = 0
+            //typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0
             //std::enable_if_t<std::is_base_of<std::input_iterator_tag,
             //typename std::iterator_traits<InputIterator>::iterator_category>::value, int> = 0>
             capacity_ = std::distance(first, last);
@@ -205,22 +205,29 @@ namespace ft {
                 for (size_type i = n; i < size_; ++i)
                     alloc_.destroy(arr_ + i);
                 size_ = n;
+                return;
             }
 //            else
 //                insert(end(), n, val);
-            else if (n <= capacity_) { //construct more elements
+
+            if (n <= capacity_) { //construct more elements
+                for (size_type i = size_; i < n; ++i)
+                    alloc_.construct(arr_ + i, val);
+                size_ = n;
+                return;
+            }
+
+            if (n > capacity_) { //allocate more space and construct
+               if (n > 2 * capacity_ && 2 * capacity_ <= max_size())
+                   reserve(n);
+               else
+                   reserve(2 * capacity_);
+
                 for (size_type i = size_; i < n; ++i)
                     alloc_.construct(arr_ + i, val);
                 size_ = n;
             }
-            else { //allocate more space and construct
-               if (2 * size_ > n && 2 * size_ <= max_size())
-                   reserve(2 * size_);
-               else reserve(n);
-                for (size_type i = size_; i < n; ++i)
-                    alloc_.construct(arr_ + i, val);
-                size_ = n;
-            }
+
         }
 
         size_type capacity() const {
@@ -242,6 +249,10 @@ namespace ft {
             tmp_arr = alloc_.allocate(n);
 
             std::memmove(tmp_arr, arr_, sizeof(value_type) * size_);
+//            for (size_type i = 0; i < size_; ++i) {
+//                alloc_.construct(tmp_arr + i, arr_[i]);
+//                alloc_.destroy(arr_ + i);
+//            }
             alloc_.deallocate(arr_, capacity_);
             capacity_ = n;
             arr_ = tmp_arr;
@@ -284,6 +295,15 @@ namespace ft {
         const_reference back() const {
             return arr_[size_ - 1];
         }
+
+        T* data() {
+            return (arr_);
+        }
+
+        const T* data() const {
+            return (arr_);
+        }
+
         //=======================end element access=================================
 
         //=============================modifiers====================================
@@ -292,11 +312,16 @@ namespace ft {
                 (
                         InputIterator first,
                         InputIterator last,
-                        typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type = 0
+                        typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0
                 )
         {
-            Vector backup(first, last);
             difference_type size_new = std::distance(first, last);
+            if (size_new < 0) {
+                this->~Vector();
+                throw FtLengthError();
+            }
+
+            Vector backup(first, last);
 
             clear();
             reserve(size_new);
@@ -312,7 +337,14 @@ namespace ft {
         } //fill
 
         void push_back (const value_type& val) {
-            insert(end(), val);
+            const value_type backup = val;
+            if (size_ == 0)
+                reserve(1);
+            else if (size_ == capacity_)
+                reserve(capacity_ * 2);
+            alloc_.construct(arr_ + size_, backup);
+            ++size_;
+//            insert(end(), val);
         }
 
         void pop_back() {
@@ -326,56 +358,52 @@ namespace ft {
 
         iterator insert (iterator position, size_type n, const value_type& val) {
 
-            size_type position_index = (position - begin()); //insert before
+            size_type insert_place_ind = position - begin();
+            value_type backup_val(val);
 
-            if (n <= 0)
-                return position;
-            if (size_ + n > max_size()) {
-                throw FtLengthError();
-            }
-            //new capacity is 2x or size + n
-            size_type new_capacity;
-            if (size_ + n <= capacity_)
-                new_capacity = capacity_;
-            else if (size_ > n && 2 * size_ <= max_size())
-                new_capacity = 2 * size_;
-            else new_capacity = size_ + n;
-
-            pointer tmp_arr;
-            tmp_arr = alloc_.allocate(new_capacity);
-
-            //first part move
-            if (position_index > 0)
-                std::memmove(tmp_arr, arr_, sizeof(value_type) * position_index);
-//            for (size_type i = 0; i < position_index; ++i)
-//                alloc_.construct(tmp_arr + i, arr_[i]);
-
-            //second part move
-            if (size_ - position_index > 0)
-                std::memmove(tmp_arr + position_index + n, arr_ + position_index,
-                             sizeof(value_type) * (size_ - position_index));
-//            for (size_type i = 0; i < size_ - position_index; ++i)
-//                alloc_.construct(tmp_arr + position_index + n + i, arr_ + position_index + i);
-
-            //fill between
-            for (size_type i = 0; i < n; ++i)
-                alloc_.construct(tmp_arr + position_index + i, val);
-
-            alloc_.deallocate(arr_, capacity_);
-            capacity_ = new_capacity;
-            arr_ = tmp_arr;
-//            else {
-//                //second part move
-//                if (size_ - position_index > 0)
-//                std::memmove(arr_ + position_index + n, arr_ + position_index,
-//                             sizeof(value_type) * (size_ - position_index));
-//
-//                //fill between
+//            if (size_ == 0 && position.get_arr() == arr_) {
 //                for (size_type i = 0; i < n; ++i)
-//                    alloc_.construct(arr_ + position_index + i, val);
+//                    push_back(val);
+//                return iterator(arr_ + insert_place_ind);
 //            }
-            size_ += n;
-            return position;
+//
+            if (capacity_ >= size_ + n) {
+                size_type end_index = (size_ == 0) ? 0 : size_ - 1;
+
+                // moving from end to begin the part after insert place
+                for (size_type i = insert_place_ind; i < size_; ++i, --end_index) {
+                    memmove
+                            (
+                                    arr_ + end_index + n,
+                                    arr_ + end_index,
+                                    sizeof(value_type)
+                            );
+//                    alloc_.construct((arr_ + end_index + n), arr_[end_index - 1]);
+//                    alloc_.destroy(arr_ + end_index - 1);
+                }
+                // inserting objects
+                for (size_type i = 0; i < n; ++i) {
+                    alloc_.construct(arr_ + insert_place_ind + i, backup_val);
+                }
+                size_ += n;
+                return iterator(arr_ + insert_place_ind);
+            }
+            // capacity_ < size_ + n: allocate new memory
+            size_type new_capacity = capacity_ * 2;
+
+//            if (size_ > n && 2 * capacity_ <= max_size())
+//                new_capacity = 2 * capacity_;
+//            else new_capacity = size_ + n;
+
+            if (new_capacity < size_ + n)
+                new_capacity = size_ + n;
+
+            difference_type backup_place(position - begin());
+
+            reserve(new_capacity);
+            insert(iterator(arr_ + backup_place), n, backup_val);
+            return iterator(arr_ + insert_place_ind);
+
         }; //fill
 
         template <class InputIterator>
@@ -383,57 +411,54 @@ namespace ft {
                 iterator position,
                 InputIterator first,
                 InputIterator last,
-                typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type = 0
+                typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0
         )
         {
             size_type position_index = position - begin(); //insert before
             size_type n = std::distance(first, last);
 
-            if (n <= 0 || (n > 0 && size_ > std::numeric_limits<size_type>::max() - n))
-                return position;
             if (size_ + n > max_size()) {
                 throw FtLengthError();
             }
             pointer tmp_arr;
+            //overflow deal
+            if (n <= 0 || (n > 0 && size_ > std::numeric_limits<size_type>::max() - n))
+                return position;
 
             //new capacity is 2x or size + n
             size_type new_capacity;
             if (size_ + n <= capacity_)
                 new_capacity = capacity_;
             else if (size_ > n && 2 * size_ <= max_size())
-                new_capacity = 2 * size_;
+                new_capacity = 2 * capacity_;
             else new_capacity = size_ + n;
 
             tmp_arr = alloc_.allocate(new_capacity);
 
-            //first part move
+                //first part move
             if (position_index > 0)
                 std::memmove(tmp_arr, arr_, sizeof(value_type) * position_index);
-//            for (size_type i = 0; i < position_index; ++i)
-//                alloc_.construct(tmp_arr + i, arr_[i]);
+//                for (size_type i = 0; i < position_index; ++i) {
+//                    alloc_.construct(tmp_arr + i, arr_[i]);
+//                    alloc_.destroy(arr_ + i);
+//                }
 
-            //second part move
+                //second part move
             if (size_ - position_index > 0)
                 std::memmove(tmp_arr + position_index + n, arr_ + position_index,
                          sizeof(value_type) * (size_ - position_index));
-//            for (size_type i = 0; i < size_ - position_index; ++i)
-//                alloc_.construct(tmp_arr + position_index + n + i, arr_ + position_index + i);
+//                for (size_type i = 0; i < size_ - position_index; ++i) {
+//                    alloc_.construct(tmp_arr + position_index + n + i, arr_[position_index + i]);
+//                   alloc_.destroy(arr_ + position_index + i);
+//                }
 
-            //fill between
+                //fill between
             std::copy(first, last, tmp_arr + position_index);
-//            for (size_type i = 0; i < n; ++i)
-//                alloc_.construct(tmp_arr + position_index + i, *(first + i));
+//                for (size_type i = 0; i < n; ++i)
+//                    alloc_.construct(tmp_arr + position_index + i, *(first + i));
             alloc_.deallocate(arr_, capacity_);
             capacity_ = new_capacity;
             arr_ = tmp_arr;
-//            else {
-//                //second part move
-//                std::memmove(arr_ + position_index + n, arr_ + position_index,
-//                             sizeof(value_type) * (size_ - position_index));
-//
-//                //fill between
-//                std::copy(first, last, arr_ + position_index);
-//            }
             size_ += n;
             return position;
         };
@@ -446,18 +471,21 @@ namespace ft {
             --size_;
             std::memmove(arr_ + span, arr_ + span + 1, sizeof(value_type) * (size_ - span));
             return (iterator(arr_+ span));
-        }
+        }// one
 
         iterator erase (iterator first, iterator last) {
             if (std::distance(first, last) < 0)
                 return arr_;
             difference_type span = first - begin();
-            while (first != last) {
-                erase(first);
-                --last;
+            difference_type n = std::distance(first, last);
+            difference_type count;
+            for (count = span; count < span + n; ++count) {
+                alloc_.destroy(arr_ + count);
             }
+            std::memmove(arr_ + span, arr_ + span + n, sizeof(value_type) * (size_ - span - n));
+            size_ -= n;
             return (iterator(arr_+ span));
-        }
+        }// range
 
         void swap(Vector & x) {
             ft::swap(arr_, x.arr_);
@@ -474,6 +502,7 @@ namespace ft {
             }
             size_ = 0;
         }
+
         //===========================end_modifiers==================================
 
         //=============================allocator====================================
@@ -502,15 +531,7 @@ namespace ft {
     //================================non member functions===========================
     template <class T, class Alloc>
     bool operator== (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs) {
-
-        if (lhs.size() != rhs.size())
-            return false;
-        int count = 0;
-        for (size_t i = 0; i < lhs.size(); ++i) {
-            if (lhs[count] != rhs[count])
-                return false;
-        }
-        return true;
+        return (lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
     }
 
     template <class T, class Alloc>
@@ -544,5 +565,12 @@ namespace ft {
         x.swap(y);
     }
     //==============================end non member functions=========================
+}
+
+namespace std {
+    template <class T, class Alloc>
+    void swap (ft::Vector<T,Alloc>& x, ft::Vector<T,Alloc>& y) {
+        x.swap(y);
+    }
 }
 #endif //FT_VECTOR_HPP

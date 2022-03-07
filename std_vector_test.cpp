@@ -1394,8 +1394,8 @@ void relational_operators() {
 }
 
 void std_modifiers_test() {
-//	std_assign_iter_iter_leaks_test();
-//	std_assign_iter_iter_1280b_leaks_test();
+	std_assign_iter_iter_leaks_test();
+	std_assign_iter_iter_1280b_leaks_test();
 
 	std_assign_n_val_test();
 	std_push_back_test();
@@ -1403,9 +1403,9 @@ void std_modifiers_test() {
 	std_insert_iter_val_test();
 	std_insert_iter_n_val_test();
 	std_insert_iter_iter_iter_test();
-//	std_insert_iter_iter_iter_8390_leaks_test();
+	std_insert_iter_iter_iter_8390_leaks_test();
 
-//	std_erase_2540_leaks_test(); // <- I don't know why leaks.
+	std_erase_2540_leaks_test(); // <- I don't know why leaks.
 	std_swap_test();
 	std_clear_test();
 	std_relational_operators();

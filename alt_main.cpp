@@ -395,7 +395,7 @@ void ft_el_access_test() {
 
 // Modifiers ===================================================================
 
-void ft_assign_iter_iter_leaks_test() {
+void assign_range_test() {
 	std::cout << "\nassign_iter_iter\n" << std::endl;
 	lib::con<Test> mouse(128);
 	lib::con<Test> empty;
@@ -564,7 +564,7 @@ void ft_assign_iter_iter_1280b_leaks_test() {
 
 }
 
-void ft_assign_n_val_test() {
+void assign_fill_test() {
 	std::cout << "\nassign_n_val\n" << std::endl;
 	lib::con<Test> mouse(128);
 	lib::con<Test> empty;
@@ -622,7 +622,7 @@ void ft_assign_n_val_test() {
 
 }
 
-void ft_push_back_test() {
+void push_back_test() {
 	std::cout << "\npush_back\n" << std::endl;
 	lib::con<Test> mouse(128);
 	lib::con<Test> empty;
@@ -670,7 +670,7 @@ void ft_push_back_test() {
 
 }
 
-void ft_pop_back_test() {
+void small_stuff_test() {
 	std::cout << "\npop_back\n" << std::endl;
 	lib::con<Test> mouse(128);
 	lib::con<Test> empty;
@@ -695,7 +695,7 @@ void ft_pop_back_test() {
 	std::cout << std::endl;
 }
 
-void ft_insert_iter_val_test() {
+void insert_val_test() {
 	std::cout << "\ninsert_iter_val\n" << std::endl;
 	lib::con<Test> mouse(128);
 	lib::con<Test> fat_mouse(1023);
@@ -782,7 +782,7 @@ void ft_insert_iter_val_test() {
 	}
 	std::cout << std::endl;
 }
-void ft_insert_iter_n_val_test() {
+void insert_fill_test() {
 	std::cout << "\ninsert_iter_n_val\n" << std::endl;
 	lib::con<Test> mouse(128);
 	lib::con<Test> fat_mouse(1023);
@@ -870,7 +870,7 @@ void ft_insert_iter_n_val_test() {
 	std::cout << std::endl;
 }
 
-void ft_insert_iter_iter_iter_test() {
+void insert_range_test() {
 	std::cout << "\niter_iter_iter\n" << std::endl;
 	lib::con<Test> mouse(128);
 	lib::con<Test> empty;
@@ -1039,7 +1039,7 @@ void ft_insert_iter_iter_iter_8390_leaks_test() {
 
 }
 
-void ft_erase_2540_leaks_test() {
+void erase_test() {
 	std::cout << "erase_2540_leaks_test" << std::endl;
 	lib::con<Test> mouse(129);
 	for (size_t i = 0; i < mouse.size(); ++i) {
@@ -1110,7 +1110,7 @@ void ft_erase_2540_leaks_test() {
 	std::cout << std::endl;
 }
 
-void ft_swap_test() {
+void swap_test() {
 	std::cout << "swap_test" << std::endl;
 	lib::con<Test> mouse(129);
 	for (size_t i = 0; i < mouse.size(); ++i) {
@@ -1166,7 +1166,7 @@ void ft_swap_test() {
 	std::cout << std::endl;
 }
 
-void ft_clear_test() {
+void clear_test() {
 	std::cout << "clear_test" << std::endl;
 	lib::con<Test> empty;
 	lib::con<Test> big_empty;
