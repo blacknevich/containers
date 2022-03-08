@@ -109,7 +109,7 @@ namespace ft {
         } //range
 
         Vector (const Vector& x)
-                : arr_(0), size_(x.size_), capacity_(x.capacity_), alloc_(x.alloc_) {
+                : arr_(0), size_(x.size_), capacity_(x.size_), alloc_(x.alloc_) {
             arr_ = alloc_.allocate(x.capacity_);
             for (size_type i = 0; i < x.size_; ++i) {
                 alloc_.construct(arr_ + i, x[i]);
@@ -320,12 +320,27 @@ namespace ft {
                 this->~Vector();
                 throw FtLengthError();
             }
-
             Vector backup(first, last);
 
             clear();
             reserve(size_new);
             insert(begin(), backup.begin(), backup.end());
+
+
+//            clear();
+//            difference_type size_new = std::distance(first, last);
+//            if (size_new < 0) {
+//                this->~Vector();
+//                throw FtLengthError();
+//            }
+//            if (size_new) {
+//                if ((size_type)size_new > capacity_) {
+//                    alloc_.deallocate(arr_, capacity_);
+////               reserve(size_new);
+//                    arr_ = alloc_.allocate(size_new);
+//                }
+//                std::copy(first, last, begin());
+//            }
         } //range
 
         void assign (size_type n, const value_type& val) {
@@ -467,6 +482,10 @@ namespace ft {
             difference_type span = position - begin();
             if (size_ == 0)
                 return (iterator(arr_+ span));
+            if (position == end() - 1) {
+                pop_back();
+                return (iterator(arr_+ span));
+            }
             alloc_.destroy(arr_ + span);
             --size_;
             std::memmove(arr_ + span, arr_ + span + 1, sizeof(value_type) * (size_ - span));
@@ -479,6 +498,12 @@ namespace ft {
             difference_type span = first - begin();
             difference_type n = std::distance(first, last);
             difference_type count;
+            if (last == end() - 1) {
+                for (count = 0; count < n; ++count) {
+                    pop_back();
+                }
+                return (iterator(arr_+ span));
+            }
             for (count = span; count < span + n; ++count) {
                 alloc_.destroy(arr_ + count);
             }
@@ -488,10 +513,20 @@ namespace ft {
         }// range
 
         void swap(Vector & x) {
-            ft::swap(arr_, x.arr_);
-            ft::swap(size_, x.size_);
-            ft::swap(capacity_, x.capacity_);
-            ft::swap(alloc_, x.alloc_);
+            pointer arr_tmp = arr_;
+            size_type size_tmp = size_;
+            size_type capacity_tmp = capacity_;
+            allocator_type alloc_tmp = get_allocator();
+
+            arr_ = x.arr_;
+            size_ = x.size_;
+            capacity_ = x.capacity_;
+            alloc_ = x.alloc_;
+
+            x.arr_ = arr_tmp;
+            x.size_ = size_tmp;
+            x.capacity_ = capacity_tmp;
+            x.alloc_ = alloc_tmp;
         }
 
         void clear() {

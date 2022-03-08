@@ -218,7 +218,7 @@ namespace ft {
             const Reverse_iterator<Iterator>& rhs
             )
     {
-        return lhs.base() - rhs.base();
+        return rhs.base() - lhs.base();
     }
 }
 

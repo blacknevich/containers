@@ -4,8 +4,6 @@
 
 #include <iostream>
 #include <vector>
-#include <cstddef> // size_t , ?ptrdiff_t
-#include <limits> // ?numeric_limit=
 #include "ft_vector.hpp"
 
 #define lib std
@@ -102,7 +100,7 @@ void base_state_announce(std::string str) {
     std::cout << std::endl;
 }
 
-void show_vector_info(lib::con<Test> vector) {
+void show_vector_info(lib::con<Test> & vector) {
     std::cout << "size    : " << vector.size()     << std::endl;
     std::cout << "capacity: " << vector.capacity() << std::endl;
     std::cout << "arr     :" << std::endl;
@@ -114,7 +112,7 @@ void show_vector_info(lib::con<Test> vector) {
     std::cout << std::endl;
 }
 
-void show_etalon_vector_info(std::vector<int> vector) {
+void show_etalon_vector_info(std::vector<int> & vector) {
     std::cout << "size    : " << vector.size()     << std::endl;
     std::cout << "capacity: " << vector.capacity() << std::endl;
     std::cout << "arr     :" << std::endl;
@@ -160,6 +158,7 @@ void copy_constructor() {
     test_announce("copy constructor");
     lib::con<Test> base(42, 7);
     fill_array_with_123(base, 0);
+    base.reserve(1000);
     show_vector_info(base);
 
     action_announce("Copy of base made");
@@ -342,10 +341,10 @@ void element_access_test() {
     }
 
     action_announce("taking address for empty and value for full");
-    std::cout << "Front empty: " << reinterpret_cast<long*>(&empty.front())   << std::endl;
+    empty.front(); //good if compiles
     std::cout << "Front full: " << testy.front().some_ << std::endl;
 
-    std::cout << "Back empty: " << reinterpret_cast<long*>(&empty.back())   << std::endl;
+    empty.back(); //good if compiles
     std::cout << "Back full: " << testy.back().some_ << std::endl;
 }
 
@@ -523,8 +522,9 @@ void small_stuff_test() {
     action_announce("return size of above - max_size() test");
     std::cout << testy.max_size() << std::endl;
 
-    action_announce("return arr of above - data() test");
-    std::cout << testy.data() << std::endl;
+    action_announce("see whether data return is not null and compiles - data() test");
+    if (testy.data())
+        std::cout << "successfully compiled" << std::endl;
 
     test_announce("swap test");
 
@@ -533,12 +533,7 @@ void small_stuff_test() {
     show_vector_info(testy);
     show_vector_info(small_testy);
 
-    action_announce("swap again with swap(x, y)");
-    ft::swap(testy, small_testy);
-    show_vector_info(testy);
-    show_vector_info(small_testy);
-
-    action_announce("swap again with std swap");
+    action_announce("swap again with std swap(x, y)");
     std::swap(testy, small_testy);
     show_vector_info(testy);
     show_vector_info(small_testy);
@@ -738,7 +733,8 @@ void erase_test() {
     show_vector_info(testy);
 
     action_announce("erase the end from above");
-    std::cout << "return value: " << testy.erase(testy.end() - 1)->some_ << std::endl;
+    if (testy.erase(testy.end() - 1) == testy.end())
+        std::cout << "return value is end"<< std::endl;
     show_vector_info(testy);
 
     action_announce("erase from the 10th element of above");
@@ -752,7 +748,8 @@ void erase_test() {
     show_vector_info(testy);
 
     action_announce("erase full range from above");
-    std::cout << "return value: " << testy.erase(testy.begin(), testy.end())->some_ << std::endl;
+    if (testy.erase(testy.begin(), testy.end()) == testy.end())
+        std::cout << "return value is end"<< std::endl;
     show_vector_info(testy);
 }
 
@@ -937,13 +934,27 @@ void vector_relational_operators() {
 
     base_state_announce("two vectors: big and small");
     lib::con<int> big;
-    for (int i = 0; i < 42; i += 2) {
-        big.push_back(2);
+    for (int i = 0; i < 42; ++i) {
+        big.push_back(i);
     }
+    for (size_t i = 0; i < big.size(); ++i) {
+        std::cout << big[i] << " ";
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+
     lib::con<int> small;
-    for (int i = 1; i < 7; i += 2) {
-        small.push_back(2);
+    for (size_t i = 0; i < small.size(); ++i) {
+        small.push_back(i);
     }
+    for (size_t i = 0; i < big.size(); ++i) {
+        std::cout << big[i] << " ";
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    test_announce("vector relational operators test");
+
     action_announce("test comparison between vectors,  first is big, second is small");
     std::cout << "test operator > : " << (big >  small) << std::endl;
     std::cout << "test operator >= : " << (big >= small) << std::endl;
@@ -957,34 +968,43 @@ void const_vs_non_const_it() {
     test_announce("const and non const iterators comparison");
     base_state_announce("two vectors and two end iterators: bigger non const and smaller const");
     lib::con<int> non;
-    for (int i = 0; i < 42; i += 2) {
+    for (size_t i = 0; i < 42; ++i) {
         non.push_back(2);
     }
+    for (size_t i = 0; i < 42; ++i) {
+        std::cout << non[i] << "  ";
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+
     lib::con<int> small;
-    for (int i = 0; i < 10; i += 2) {
+    for (size_t i = 0; i < 10; ++i) {
         small.push_back(2);
     }
+    for (size_t i = 0; i < 10; ++i) {
+        std::cout << small[i] << "  ";
+    }
+    std::cout << std::endl;
+
     lib::con<int>::iterator       nonconst_it(non.end() - 1);
     lib::con<int>::const_iterator const_it(small.end() - 1);
 
+    test_announce("const and non const iterators comparison");
+
     action_announce("test comparison between vectors, first is big non const, second is small const");
-    std::cout << "test operator > : " << (nonconst_it >  const_it) << std::endl;
-    std::cout << "test operator >= : " << (nonconst_it >= const_it) << std::endl;
-    std::cout << "test operator < : " << (nonconst_it <  const_it) << std::endl;
-    std::cout << "test operator <= : " << (nonconst_it <= const_it) << std::endl;
-    std::cout << "test operator == : " << (nonconst_it == const_it) << std::endl;
-    std::cout << "test operator != : " << (nonconst_it != const_it) << std::endl;
+    if (nonconst_it >  const_it || nonconst_it <= const_it)
+        if (nonconst_it >= const_it || nonconst_it <  const_it)
+            if (nonconst_it == const_it || nonconst_it != const_it)
+                std::cout << "successfully compiled " << std::endl;
 
     action_announce("now same thing but reverse iterators end rbegin");
     lib::con<int>::reverse_iterator       nonconst_rev = non.rbegin();
     lib::con<int>::const_reverse_iterator const_rev = small.rbegin();
 
-    std::cout << "test operator > : " << (const_rev >  nonconst_rev) << std::endl;
-    std::cout << "test operator >= : " << (const_rev >= nonconst_rev) << std::endl;
-    std::cout << "test operator < : " << (const_rev <  nonconst_rev) << std::endl;
-    std::cout << "test operator <= : " << (const_rev <= nonconst_rev) << std::endl;
-    std::cout << "test operator == : " << (const_rev == nonconst_rev) << std::endl;
-    std::cout << "test operator != : " << (const_rev != nonconst_rev) << std::endl;
+    if ((const_rev >  nonconst_rev) || (const_rev <= nonconst_rev))
+        if ((const_rev <  nonconst_rev) || (const_rev >= nonconst_rev))
+            if ((const_rev == nonconst_rev) || (const_rev != nonconst_rev))
+                std::cout << "successfully compiled " << std::endl;
 }
 
 void ft_modifiers_test() {
