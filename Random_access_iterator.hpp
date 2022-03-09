@@ -6,7 +6,7 @@
 #define RANDOM_ACCESS_ITERATOR_HPP
 
 #include <cstddef> // ptrdiff_t
-#include "Iterator_traits.hpp"
+#include "utils.hpp"
 
 namespace ft {
 
@@ -93,23 +93,9 @@ namespace ft {
             return this_type(arr_ + n);
         }
 
-        // n + it - non member
-        friend this_type operator+
-                (difference_type n,
-                 this_type const & rhs) {
-            return rhs + n;
-        }
-
         // it - n
         this_type operator-(difference_type n) const {
             return this_type(arr_ - n);
-        }
-
-        // it - it - non member
-        friend difference_type operator-
-        (this_type const & lhs,
-         this_type const & rhs) {
-            return lhs.get_arr() - rhs.get_arr();
         }
 
         // it += n
@@ -124,29 +110,6 @@ namespace ft {
             return (*this);
         }
 
-        // <
-        friend bool operator<(this_type const &lhs,
-                              this_type const &rhs) {
-            return lhs.arr_ < rhs.arr_;
-        }
-
-        // >
-        friend bool operator>(this_type const &lhs,
-                              this_type const &rhs) {
-            return lhs.arr_ > rhs.arr_;
-        }
-
-        // <=
-        friend bool operator<=(this_type const &lhs,
-                               this_type const &rhs) {
-            return lhs.arr_ <= rhs.arr_;
-        }
-
-        // >=
-        friend bool operator>=(this_type const &lhs,
-                               this_type const &rhs) {
-            return lhs.arr_ >= rhs.arr_;
-        }
         // it[n]
         Random_access_iterator operator[](difference_type n) const {
             return arr_[n];
@@ -255,24 +218,8 @@ namespace ft {
                     const Random_access_iterator<rC, rT, rD, rP, rR> & rhs
             )
     {
-        return rhs.get_arr() - lhs.get_arr();
+        return lhs.get_arr() - rhs.get_arr();
     }
-
-//    // distance(it, it)
-//    template< class InputIt >
-//    typename ft::iterator_traits<InputIt>::difference_type distance
-//            (
-//                    InputIt first,
-//                    InputIt last
-//            )
-//    {
-//        typename ft::iterator_traits<InputIt>::difference_type count = 0;
-//        while (first != last) {
-//            ++first;
-//            ++count;
-//        }
-//        return (count);
-//    }
 }
 
 #endif //RANDOM_ACCESS_ITERATOR_HPP

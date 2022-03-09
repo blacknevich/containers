@@ -1020,3 +1020,23 @@ successfully compiled
 
 >>> action made: now same thing but reverse iterators end rbegin
 successfully compiled 
+
+=====================stack test=====================
+
+base_state: deq vector with 10 range, my Vector with 42 range, stacks based on it
+
+
+=====================stack test=====================
+
+
+>>> action made: stack initialization with deque and top - pop cycle
+9 8 7 6 5 4 3 2 1 0 
+
+
+>>> action made: stack initialization with vector and top - pop cycle
+41 40 39 38 37 36 35 34 33 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0 
+>>> action made: empty on empty container and then with push
+Initialize empty.
+
+>>> action made: push back to empty stack and check
+is not empty

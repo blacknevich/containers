@@ -67,6 +67,7 @@ namespace ft {
     struct is_integral<unsigned long long> : public is_integral_type_bool<unsigned long long, true> {};
 
 //=============================end is integral===============================
+
 //====================lexicographical compare================================
     template <class InputIterator1, class InputIterator2>
     bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
@@ -97,5 +98,30 @@ namespace ft {
         return true;
     }
 //==============================end_equal====================================
+//===========================iterator_traits=================================
+    template <class Iterator> struct iterator_traits {
+        typedef typename Iterator::value_type            value_type;
+        typedef typename Iterator::difference_type       difference_type;
+        typedef typename Iterator::iterator_category     iterator_category;
+        typedef typename Iterator::pointer               pointer;
+        typedef typename Iterator::reference             reference;
+
+    };
+
+    template <class T> struct iterator_traits<T*> {
+        typedef T                                        value_type;
+        typedef std::ptrdiff_t                           difference_type;
+        typedef std::random_access_iterator_tag          iterator_category;
+        typedef T*                                       pointer;
+        typedef T&                                       reference;
+    };
+
+    template <class T> struct iterator_traits<const T*> {
+        typedef T                                        value_type;
+        typedef std::ptrdiff_t                           difference_type;
+        typedef std::random_access_iterator_tag          iterator_category;
+        typedef const T*                                 pointer;
+        typedef const T&                                 reference;
+    };
 }
 #endif //UTILS_HPP

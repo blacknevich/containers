@@ -15,7 +15,6 @@
 //================================local includes===================================
 #include "Random_access_iterator.hpp"
 #include "Reverse_iterator.hpp"
-#include "Iterator_traits.hpp"
 #include "utils.hpp"
 
 namespace ft {
@@ -129,11 +128,6 @@ namespace ft {
         //============================end destructor================================
 
         //=======================assignation operator===============================
-        //if copy constructable calls for a copy constructor, if assignable - will
-        // call an assignation, otherwise will directly copy; assignation prevails!!!
-        //but if no element exists copy is used
-        //only destroys those that above size
-        //resize calls for default const only!
        Vector& operator= (const Vector& x) {
             if (this == &x)
                 return (*this);

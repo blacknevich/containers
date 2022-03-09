@@ -4,10 +4,14 @@
 
 #include <iostream>
 #include <vector>
+#include <deque>
+#include <stack>
 #include "ft_vector.hpp"
+#include "ft_stack.hpp"
 
 #define lib std
 #define con vector
+#define sta stack
 class Test {
 public:
     Test() : some_(0) {
@@ -1007,6 +1011,48 @@ void const_vs_non_const_it() {
                 std::cout << "successfully compiled " << std::endl;
 }
 
+void stack_test() {
+    test_announce("stack test");
+    base_state_announce("deq vector with 10 range, my Vector with 42 range, stacks based on it");
+    std::deque<int> deq(10, 7);
+    for (size_t i = 0; i < 10; ++i) {
+        deq.push_back(i);
+    }
+
+    lib::con<int> testy(42, 42);
+    for (size_t i = 0; i < 42; ++i) {
+        testy.push_back(i);
+    }
+
+    test_announce("stack test");
+
+    action_announce("stack initialization with deque and top - pop cycle");
+    lib::sta<int> deq_stack(deq);
+    for (size_t i = 0; i < 10; ++i) {
+        std::cout << deq_stack.top() << " ";
+        deq_stack.pop();
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    action_announce("stack initialization with vector and top - pop cycle");
+    lib::sta<int, std::vector<int> > vec_stack(testy);
+    for (size_t i = 0; i < 42; ++i) {
+        std::cout << vec_stack.top() << " ";
+        vec_stack.pop();
+    }
+
+    action_announce("empty on empty container and then with push");
+    lib::con<int> empty;
+    lib::sta<int, std::vector<int> > empty_stack(empty);
+    if (empty_stack.empty())
+        std::cout << "Initialize empty." << std::endl;
+    action_announce("push back to empty stack and check");
+    empty_stack.push(1);
+    if (!empty_stack.empty())
+        std::cout << "is not empty" << std::endl;
+}
+
 void ft_modifiers_test() {
 	assign_range_test();
     assign_fill_test();
@@ -1033,6 +1079,7 @@ int main(void)
     reverse_iterators();
     vector_relational_operators();
     const_vs_non_const_it();
+    stack_test();
     return 0;
 }
 
