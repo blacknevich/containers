@@ -7,12 +7,12 @@
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
 # 
-# Which is the root_ file.
+# Which is the root file.
 # =============================================================================
 
 # =============================================================================
 # Project: containers
-# Configurations: Debug
+# Configurations: 
 # =============================================================================
 
 #############################################
@@ -20,11 +20,6 @@
 
 ninja_required_version = 1.5
 
-
-#############################################
-# Set configuration variable for custom commands.
-
-CONFIGURATION = Debug
 # =============================================================================
 # Include auxiliary files.
 
@@ -39,13 +34,13 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /Users/nscarab/Desktop/clion/projects/containers/cmake-build-debug/
+cmake_ninja_workdir = /Users/nscarab/Desktop/clion/projects/old_cont_with_cmake/cmake-build-default/
 
 #############################################
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/nscarab/Desktop/clion/projects/containers/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/nscarab/Desktop/clion/projects/containers -B/Users/nscarab/Desktop/clion/projects/containers/cmake-build-debug
+  COMMAND = cd /Users/nscarab/Desktop/clion/projects/old_cont_with_cmake/cmake-build-default && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/nscarab/Desktop/clion/projects/old_cont_with_cmake -B/Users/nscarab/Desktop/clion/projects/old_cont_with_cmake/cmake-build-default
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -57,7 +52,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/nscarab/Desktop/clion/projects/containers/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd /Users/nscarab/Desktop/clion/projects/old_cont_with_cmake/cmake-build-default && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -72,9 +67,9 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 
 build cmake_object_order_depends_target_containers: phony || CMakeFiles/containers.dir
 
-build CMakeFiles/containers.dir/main.cpp.o: CXX_COMPILER__containers_Debug /Users/nscarab/Desktop/clion/projects/containers/main.cpp || cmake_object_order_depends_target_containers
+build CMakeFiles/containers.dir/main.cpp.o: CXX_COMPILER__containers_ /Users/nscarab/Desktop/clion/projects/old_cont_with_cmake/main.cpp || cmake_object_order_depends_target_containers
   DEP_FILE = CMakeFiles/containers.dir/main.cpp.o.d
-  FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -mmacosx-version-min=10.14   -Wall -Wextra -Werror --std=c++98 -std=gnu++98
+  FLAGS = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -mmacosx-version-min=10.14   -Wall -Wextra -Werror --std=c++98 -std=gnu++98
   OBJECT_DIR = CMakeFiles/containers.dir
   OBJECT_FILE_DIR = CMakeFiles/containers.dir
 
@@ -86,8 +81,8 @@ build CMakeFiles/containers.dir/main.cpp.o: CXX_COMPILER__containers_Debug /User
 #############################################
 # Link the executable containers
 
-build containers: CXX_EXECUTABLE_LINKER__containers_Debug CMakeFiles/containers.dir/main.cpp.o
-  FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -mmacosx-version-min=10.14
+build containers: CXX_EXECUTABLE_LINKER__containers_ CMakeFiles/containers.dir/main.cpp.o
+  FLAGS = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -mmacosx-version-min=10.14
   OBJECT_DIR = CMakeFiles/containers.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -103,7 +98,7 @@ build containers: CXX_EXECUTABLE_LINKER__containers_Debug CMakeFiles/containers.
 # =============================================================================
 
 #############################################
-# Folder: /Users/nscarab/Desktop/clion/projects/containers/cmake-build-debug
+# Folder: /Users/nscarab/Desktop/clion/projects/old_cont_with_cmake/cmake-build-default
 
 build all: phony containers
 

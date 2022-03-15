@@ -26,7 +26,7 @@ arr     :
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
 2 2 
 
-=====================copy constructor=====================
+=====================assign_node_no_value constructor=====================
 
 size    : 42
 capacity: 1000
@@ -325,7 +325,7 @@ capacity: 42
 arr     :
 13 14 15 16 
 
-=====================assign range test=====================
+=====================are_values_equal range test=====================
 
 
 >>> action made: try to assign from incorrect range from itself
@@ -486,7 +486,7 @@ arr     :
 >>> action made: return size of above - max_size() test
 1152921504606846975
 
->>> action made: see whether data return is not null and compiles - data() test
+>>> action made: see whether n_val_ return is not null and compiles - n_val_() test
 successfully compiled
 
 =====================swap test=====================

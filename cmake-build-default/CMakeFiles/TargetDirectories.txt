@@ -1,0 +1,3 @@
+/Users/nscarab/Desktop/clion/projects/old_cont_with_cmake/cmake-build-default/CMakeFiles/rebuild_cache.dir
+/Users/nscarab/Desktop/clion/projects/old_cont_with_cmake/cmake-build-default/CMakeFiles/edit_cache.dir
+/Users/nscarab/Desktop/clion/projects/old_cont_with_cmake/cmake-build-default/CMakeFiles/containers.dir

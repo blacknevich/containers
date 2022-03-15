@@ -10,31 +10,32 @@
 
 namespace ft {
 
-    template <class Category,            // iterator::iterator_category
+    template<class Category,            // iterator::iterator_category
             class T,                     // iterator::value_type
             class Distance = ptrdiff_t,  // iterator::difference_type
-            class Pointer = T*,          // iterator::pointer
-            class Reference = T&         // iterator::reference
-    > class Random_access_iterator {
+            class Pointer = T *,          // iterator::pointer
+            class Reference = T &         // iterator::reference
+    >
+    class Random_access_iterator {
 
     public:
         //================================typedef===================================
-        typedef T                                                   value_type;
-        typedef Distance                                            difference_type;
-        typedef Pointer                                             pointer;
-        typedef Reference                                           reference;
-        typedef Category                                            iterator_category;
+        typedef T                                   value_type;
+        typedef Distance                            difference_type;
+        typedef Pointer                             pointer;
+        typedef Reference                           reference;
+        typedef Category                            iterator_category;
 
-        typedef Random_access_iterator<Category, T, Distance,
-        Pointer, Reference>                                         this_type;
+        typedef Random_access_iterator<Category,
+                T, Distance, Pointer, Reference>    this_type;
         //================================end typedef================================
 
         //============================constructors==================================
         Random_access_iterator() : arr_(0) {} //default
 //        Random_access_iterator(Random_access_iterator const &src)
-//                : arr_(src.get_arr()) {}//copy will it work if just ->
-        Random_access_iterator(Random_access_iterator<Category, T, Distance, T*, T&> const &src)
-                : arr_(src.get_arr()) {}//copy will it work if just ->
+//                : arr_(src.get_arr()) {}//assign_node_no_value will it work if just ->
+        Random_access_iterator(Random_access_iterator<Category, T, Distance, T *, T &> const &src)
+                : arr_(src.get_arr()) {}//assign_node_no_value constr
         Random_access_iterator(pointer src) : arr_(src) {} //pointer constr
         //======================end constructors====================================
 
@@ -130,96 +131,90 @@ namespace ft {
     //=========================relational operators===============================
 
     // it == it
-    template <class lC, class lT, class lD, class lP, class lR,
+    template<class lC, class lT, class lD, class lP, class lR,
             class rC, class rT, class rD, class rP, class rR>
     bool operator==
             (
-                    const Random_access_iterator<lC, lT, lD, lP, lR> & lhs,
-                    const Random_access_iterator<rC, rT, rD, rP, rR> & rhs
-            )
-    {
+                    const Random_access_iterator<lC, lT, lD, lP, lR> &lhs,
+                    const Random_access_iterator<rC, rT, rD, rP, rR> &rhs
+            ) {
         return lhs.get_arr() == rhs.get_arr();
     }
 
     // it != it
-    template <class lC, class lT, class lD, class lP, class lR,
+    template<class lC, class lT, class lD, class lP, class lR,
             class rC, class rT, class rD, class rP, class rR>
     bool operator!=
             (
-                    const Random_access_iterator<lC, lT, lD, lP, lR> & lhs,
-                    const Random_access_iterator<rC, rT, rD, rP, rR> & rhs
-            )
-    {
+                    const Random_access_iterator<lC, lT, lD, lP, lR> &lhs,
+                    const Random_access_iterator<rC, rT, rD, rP, rR> &rhs
+            ) {
         return lhs.get_arr() != rhs.get_arr();
     }
+
     // it > it
-    template <class lC, class lT, class lD, class lP, class lR,
+    template<class lC, class lT, class lD, class lP, class lR,
             class rC, class rT, class rD, class rP, class rR>
     bool operator>
             (
-                    const Random_access_iterator<lC, lT, lD, lP, lR> & lhs,
-                    const Random_access_iterator<rC, rT, rD, rP, rR> & rhs
-            )
-    {
+                    const Random_access_iterator<lC, lT, lD, lP, lR> &lhs,
+                    const Random_access_iterator<rC, rT, rD, rP, rR> &rhs
+            ) {
         return lhs.get_arr() > rhs.get_arr();
     }
 
     // it < it
-    template <class lC, class lT, class lD, class lP, class lR,
+    template<class lC, class lT, class lD, class lP, class lR,
             class rC, class rT, class rD, class rP, class rR>
     bool operator<
             (
-                    const Random_access_iterator<lC, lT, lD, lP, lR> & lhs,
-                    const Random_access_iterator<rC, rT, rD, rP, rR> & rhs
-            )
-    {
+                    const Random_access_iterator<lC, lT, lD, lP, lR> &lhs,
+                    const Random_access_iterator<rC, rT, rD, rP, rR> &rhs
+            ) {
         return lhs.get_arr() < rhs.get_arr();
     }
+
     // it >= it
-    template <class lC, class lT, class lD, class lP, class lR,
+    template<class lC, class lT, class lD, class lP, class lR,
             class rC, class rT, class rD, class rP, class rR>
     bool operator>=
             (
-                    const Random_access_iterator<lC, lT, lD, lP, lR> & lhs,
-                    const Random_access_iterator<rC, rT, rD, rP, rR> & rhs
-            )
-    {
+                    const Random_access_iterator<lC, lT, lD, lP, lR> &lhs,
+                    const Random_access_iterator<rC, rT, rD, rP, rR> &rhs
+            ) {
         return lhs.get_arr() >= rhs.get_arr();
     }
+
     // it <= it
-    template <class lC, class lT, class lD, class lP, class lR,
+    template<class lC, class lT, class lD, class lP, class lR,
             class rC, class rT, class rD, class rP, class rR>
     bool operator<=
             (
-                    const Random_access_iterator<lC, lT, lD, lP, lR> & lhs,
-                    const Random_access_iterator<rC, rT, rD, rP, rR> & rhs
-            )
-    {
+                    const Random_access_iterator<lC, lT, lD, lP, lR> &lhs,
+                    const Random_access_iterator<rC, rT, rD, rP, rR> &rhs
+            ) {
         return lhs.get_arr() <= rhs.get_arr();
     }
 
     // n + it
-    template <class C, class T, class D, class P, class R>
+    template<class C, class T, class D, class P, class R>
     Random_access_iterator<C, T, D, P, R> operator+
             (
                     typename Random_access_iterator<C, T, D, P, R>::difference_type n,
-                    Random_access_iterator<C, T, D, P, R> const & rhs
-            )
-    {
+                    Random_access_iterator<C, T, D, P, R> const &rhs
+            ) {
         return rhs + n;
     }
 
     // it - it
-    template <class lC, class lT, class lD, class lP, class lR,
+    template<class lC, class lT, class lD, class lP, class lR,
             class rC, class rT, class rD, class rP, class rR>
     typename Random_access_iterator<lC, lT, lD, lP, lR>::difference_type operator-
             (
-                    const Random_access_iterator<lC, lT, lD, lP, lR> & lhs,
-                    const Random_access_iterator<rC, rT, rD, rP, rR> & rhs
-            )
-    {
+                    const Random_access_iterator<lC, lT, lD, lP, lR> &lhs,
+                    const Random_access_iterator<rC, rT, rD, rP, rR> &rhs
+            ) {
         return lhs.get_arr() - rhs.get_arr();
     }
 }
-
 #endif //RANDOM_ACCESS_ITERATOR_HPP

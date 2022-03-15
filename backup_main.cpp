@@ -3,6 +3,34 @@
 #include <cstddef> // size_t , ?ptrdiff_t
 #include <limits> // ?numeric_limit=
 #include "ft_vector.hpp"
+//            b_node tmp_node;
+//            if (position.get_node() == root_) //we are root
+//            {
+//
+//            }
+//            else if (position.get_node()->parent_->left_->val_.first
+//                     == position.get_node()->val_.first) //we are left child
+//            {
+//                position.get_node()->parent_->left_ = position.get_node()->left_; // give left child
+//                if (position.get_node()->left_ != null_node_) { //if left child exists
+//                    position.get_node()->left_->parent_ = position.get_node()->parent_; //give parent to left
+//                    tmp_node = position.get_node()->left_->right_;
+//                    while (tmp_node.right_ != null_node_)
+//                        tmp_node = tmp_node.right_;
+//                    tmp_node->right_ = position.get_node()->right_; //his ending right is now our right
+//                }
+//                else
+//                {
+//
+//                }
+//                if (position.get_node()->right_ != null_node_)
+//                    position.get_node()->right_->parent_ = position.get_node()->parent_;  //give parent to right
+//            }
+//            else if (position.get_node()->parent_->right_->val_.first
+//                     == position.get_node()->val_.first) //we are right child
+//            {
+//
+//            }
 
 #define lib ft
 #define con Vector

@@ -6,7 +6,7 @@
 #define FT_VECTOR_HPP
 
 //==================================lib includes===================================
-//#include <iostream>
+#include <iostream>
 #include <cstddef> // size_t , ?ptrdiff_t
 #include <memory> // allocator
 #include <exception> // exception
@@ -114,7 +114,7 @@ namespace ft {
                 alloc_.construct(arr_ + i, x[i]);
             }
             //this->operator=(x);
-        }//copy
+        }//assign_node_no_value
         //======================end constructors====================================
 
         //============================destructor====================================
@@ -333,7 +333,7 @@ namespace ft {
 ////               reserve(size_new);
 //                    arr_ = alloc_.allocate(size_new);
 //                }
-//                std::copy(first, last, begin());
+//                std::assign_node_no_value(first, last, begin());
 //            }
         } //range
 

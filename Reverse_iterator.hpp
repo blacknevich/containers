@@ -16,19 +16,19 @@ namespace ft {
 
     public:
         //================================typedef===================================
-        typedef Iterator                                                     iterator_type;
-        typedef typename ft::iterator_traits<Iterator>::iterator_category    iterator_category;
-        typedef typename ft::iterator_traits<Iterator>::value_type           value_type;
-        typedef typename ft::iterator_traits<Iterator>::difference_type      difference_type;
-        typedef typename ft::iterator_traits<Iterator>::pointer              pointer;
-        typedef typename ft::iterator_traits<Iterator>::reference            reference;
+        typedef Iterator                                                    iterator_type;
+        typedef typename Iterator::iterator_category                        iterator_category;
+        typedef typename Iterator::value_type                               value_type;
+        typedef typename Iterator::difference_type                          difference_type;
+        typedef typename Iterator::pointer                                  pointer;
+        typedef typename Iterator::reference                                reference;
         //================================end typedef================================
 
         //============================constructors==================================
         Reverse_iterator() : current() {} //default
         explicit Reverse_iterator(iterator_type it) : current(it) {} //initialization
         template<class Iter>
-        Reverse_iterator(const Reverse_iterator<Iter> &rev_it) : current(rev_it.base()) {} //copy
+        Reverse_iterator(const Reverse_iterator<Iter> &rev_it) : current(rev_it.base()) {} //assign_node_no_value
         //======================end constructors====================================
 
         //============================destructor====================================
@@ -46,7 +46,9 @@ namespace ft {
         Reverse_iterator &operator=(Reverse_iterator const &rhs) {
             if (this == &rhs)
                 return *this;
-            current = rhs.base() - 1;
+            Reverse_iterator tmp = rhs.base();
+            --rhs.base();
+            current = tmp;
             return *this;
         }
 
@@ -57,7 +59,8 @@ namespace ft {
 
         // ->
         pointer operator->() const {
-            return current.get_arr_();
+//            return current.get_arr_();
+            return current.operator->();
         }
 
         // ++rev
