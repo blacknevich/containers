@@ -1,9 +1,1025 @@
 
-=====================Map tests=====================
+=====================default_constructor=====================
+
+empty() : 1
+size    : 0
+capacity: 0
+arr     :
 
 
-=====================Map tests=====================
+=====================fill constructor=====================
 
+empty() : 0
+size    : 42
+capacity: 42
+arr     :
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 
+
+=====================fill with val constructor=====================
+
+size    : 42
+capacity: 42
+arr     :
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+2 2 
+
+=====================assign_node_no_value constructor=====================
+
+size    : 42
+capacity: 1000
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+
+>>> action made: Copy of get_node made
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+
+=====================resize=====================
+
+base_state: 42 vector filled with range
+
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+
+>>> action made: resize from 42 to 21 made with val 7
+size    : 21
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 
+
+>>> action made: resize from 42 to 63 made with val 7
+size    : 63
+capacity: 84
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 
+
+>>> action made: resize from 63 to 0 made with val 7
+size    : 0
+capacity: 84
+arr     :
+
+
+>>> action made: resize from 42 to 100 made with val 7
+size    : 100
+capacity: 100
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+
+>>> action made: resize from 42 to 102 made with val 7 where capacity is 100
+size    : 102
+capacity: 200
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 
+
+>>> action made: resize to more then max size
+vector
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+
+=====================reserve_test=====================
+
+base_state: 42 vector filled with range and empty container
+
+
+>>> action made: reserve 0 to both containers
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+size    : 0
+capacity: 0
+arr     :
+
+
+>>> action made: reserve 42 to both containers
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+size    : 0
+capacity: 42
+arr     :
+
+
+>>> action made: reserve 63 to 42 container
+size    : 42
+capacity: 63
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+
+>>> action made: reserve 150 to above container
+size    : 42
+capacity: 150
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+
+>>> action made: reserve more then max size to above
+allocator<T>::allocate(size_t n) 'n' exceeds maximum supported size
+size    : 42
+capacity: 150
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+
+=====================assignment operator test=====================
+
+base_state: 42 vector filled with range and empty container
+
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+
+>>> action made: are_values_equal get_node to empty container
+size    : 0
+capacity: 42
+arr     :
+
+
+>>> action made: are_values_equal empty to fool
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+
+=====================iterator_test=====================
+
+base_state: 42 vector filled with range and empty container
+
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+
+>>> action made: dereferencing following iterators
+begin: 0
+end - 1: 41
+rbegin: 41
+rend - 1: 0
+
+>>> action made: same but vector is const and full of 7s now
+begin: 7
+end - 1: 7
+rbegin: 7
+rend - 1: 7
+
+>>> action made: iterator arithmetics end and begin if full
+difference: 42
+show_begin + 1: 1
+1 + show_begin: 1
+++show_begin: 1
+--show_begin: 0
+
+=====================element access test=====================
+
+base_state: 42 vector filled with range and empty container
+
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+base_state: empty vector
+
+size    : 0
+capacity: 0
+arr     :
+
+
+>>> action made: at with exceeding range parameter
+vector
+
+>>> action made: taking address for empty and value for full
+Front full: 0
+Back full: 41
+
+=====================are_values_equal range test=====================
+
+base_state: 42 vector filled with range
+
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+base_state: empty vector
+
+size    : 0
+capacity: 0
+arr     :
+
+base_state: empty vector with 100 capacity
+
+size    : 0
+capacity: 1000
+arr     :
+
+base_state: 10 vector filled with range
+
+
+=====================are_values_equal range test=====================
+
+
+>>> action made: are_values_equal full with range from empty
+size    : 0
+capacity: 42
+arr     :
+
+
+>>> action made: are_values_equal empty with range from full with arithmetics
+size    : 32
+capacity: 32
+arr     :
+5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 
+25 26 27 28 29 30 31 32 33 34 35 36 
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+
+>>> action made: are_values_equal to full 42 from small vector
+size    : 10
+capacity: 42
+arr     :
+10 11 12 13 14 15 16 17 18 19 
+size    : 10
+capacity: 10
+arr     :
+10 11 12 13 14 15 16 17 18 19 
+
+>>> action made: are_values_equal to big capacity empty from above
+size    : 10
+capacity: 1000
+arr     :
+10 11 12 13 14 15 16 17 18 19 
+
+=====================are_values_equal range test=====================
+
+
+>>> action made: are_values_equal to full vector with range from itself
+size    : 10
+capacity: 42
+arr     :
+10 11 12 13 14 15 16 17 18 19 
+size    : 10
+capacity: 42
+arr     :
+10 11 12 13 14 15 16 17 18 19 
+
+>>> action made: are_values_equal to vector above with range from itself + arithmetics
+size    : 10
+capacity: 42
+arr     :
+10 11 12 13 14 15 16 17 18 19 
+size    : 4
+capacity: 42
+arr     :
+13 14 15 16 
+
+=====================are_values_equal range test=====================
+
+
+>>> action made: try to are_values_equal from incorrect range from itself
+vector
+size    : 0
+capacity: 0
+arr     :
+
+
+>>> action made: try to are_values_equal from above max size iterator from itself
+vector
+size    : 0
+capacity: 0
+arr     :
+
+
+=====================are_values_equal fill test=====================
+
+base_state: 42 vector filled with range
+
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+base_state: empty vector
+
+size    : 0
+capacity: 0
+arr     :
+
+base_state: empty vector with 100 capacity
+
+size    : 0
+capacity: 1000
+arr     :
+
+
+=====================are_values_equal fill test=====================
+
+
+>>> action made: are_values_equal to empty with 42 sevens
+size    : 42
+capacity: 42
+arr     :
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 
+
+>>> action made: are_values_equal to full with 42 sevens
+size    : 42
+capacity: 42
+arr     :
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 
+
+>>> action made: are_values_equal to big capacity empty with 42 sevens
+size    : 42
+capacity: 1000
+arr     :
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+7 7 
+
+>>> action made: are_values_equal to above with 0 sevens
+size    : 0
+capacity: 1000
+arr     :
+
+
+=====================push back test=====================
+
+base_state: 42 vector filled with range
+
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+base_state: empty vector
+
+size    : 0
+capacity: 0
+arr     :
+
+base_state: empty vector with 100 capacity
+
+size    : 0
+capacity: 1000
+arr     :
+
+
+=====================push back test=====================
+
+
+>>> action made: push back seven to empty
+size    : 1
+capacity: 1
+arr     :
+7 
+
+>>> action made: push back a val from the end of itself to full
+size    : 43
+capacity: 84
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 41 
+
+>>> action made: push back a seven to big cap empty
+size    : 1
+capacity: 1000
+arr     :
+7 
+
+=====================pop back test=====================
+
+base_state: 42 vector filled with range
+
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+base_state: empty vector
+
+size    : 0
+capacity: 0
+arr     :
+
+base_state: 10 vector filled with range
+
+size    : 10
+capacity: 10
+arr     :
+10 11 12 13 14 15 16 17 18 19 
+
+=====================pop back test=====================
+
+
+>>> action made: ten times pop back from full
+size    : 32
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 
+
+=====================small stuff test=====================
+
+
+>>> action made: return size of above - size() test
+32
+
+>>> action made: return size of above - max_size() test
+1152921504606846975
+
+>>> action made: see whether n_val_ return is not null and compiles - n_val_() test
+successfully compiled
+
+=====================swap test=====================
+
+
+>>> action made: swap full and small
+size    : 10
+capacity: 10
+arr     :
+10 11 12 13 14 15 16 17 18 19 
+size    : 32
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 
+
+>>> action made: swap again with std swap(x, y)
+size    : 32
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 
+size    : 10
+capacity: 10
+arr     :
+10 11 12 13 14 15 16 17 18 19 
+
+=====================insert value test=====================
+
+base_state: 42 vector filled with range
+
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+base_state: empty vector
+
+size    : 0
+capacity: 0
+arr     :
+
+base_state: empty vector with 100 capacity
+
+size    : 0
+capacity: 1000
+arr     :
+
+
+=====================insert value test=====================
+
+
+>>> action made: insert a seven to begin of full
+size    : 43
+capacity: 84
+arr     :
+7 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 
+19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 
+39 40 41 
+
+>>> action made: insert a seven to end of above
+size    : 44
+capacity: 84
+arr     :
+7 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 
+19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 
+39 40 41 7 
+
+>>> action made: insert a seven to begin of big cap empty
+size    : 1
+capacity: 1000
+arr     :
+7 
+
+=====================insert value test=====================
+
+
+>>> action made: insert numbers to begin of empty
+size    : 2
+capacity: 2
+arr     :
+42 7 
+
+>>> action made: insert to begin of above a value from begin of itself
+size    : 3
+capacity: 4
+arr     :
+42 42 7 
+
+>>> action made: insert to end of above a value from end of itself
+size    : 4
+capacity: 4
+arr     :
+42 42 7 7 
+
+>>> action made: insert to begin of above a value from end of itself
+size    : 5
+capacity: 8
+arr     :
+7 42 42 7 7 
+
+>>> action made: insert to end of above a value from begin of itself
+size    : 6
+capacity: 8
+arr     :
+7 42 42 7 7 7 
+
+=====================insert fill test=====================
+
+base_state: 42 vector filled with range
+
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+base_state: empty vector
+
+size    : 0
+capacity: 0
+arr     :
+
+base_state: empty vector with 100 capacity
+
+size    : 0
+capacity: 1000
+arr     :
+
+
+=====================insert fill test=====================
+
+
+>>> action made: insert five sevens to begin of full
+size    : 47
+capacity: 84
+arr     :
+7 7 7 7 7 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 
+15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 
+35 36 37 38 39 40 41 
+
+>>> action made: insert five sevens to end of full
+size    : 52
+capacity: 84
+arr     :
+7 7 7 7 7 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 
+15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 
+35 36 37 38 39 40 41 7 7 7 7 7 
+
+>>> action made: insert five sevens to begin of big cap empty
+size    : 5
+capacity: 1000
+arr     :
+7 7 7 7 7 
+
+=====================insert fill test=====================
+
+
+>>> action made: insert numbers to begin of empty
+size    : 2
+capacity: 2
+arr     :
+42 7 
+
+>>> action made: insert to begin of above 5 times value from begin of itself
+size    : 7
+capacity: 7
+arr     :
+42 42 42 42 42 42 7 
+
+>>> action made: insert to end of above 5 times value from end of itself
+size    : 12
+capacity: 14
+arr     :
+42 42 42 42 42 42 7 7 7 7 7 7 
+
+>>> action made: insert to begin of above 5 times value from end of itself
+size    : 17
+capacity: 28
+arr     :
+7 7 7 7 7 42 42 42 42 42 42 7 7 7 7 7 7 
+
+>>> action made: insert to end of above 5 times value from begin of itself
+size    : 22
+capacity: 28
+arr     :
+7 7 7 7 7 42 42 42 42 42 42 7 7 7 7 7 7 7 7 7 
+7 7 
+
+=====================insert range test=====================
+
+base_state: 42 vector filled with range
+
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+base_state: empty vector
+
+size    : 0
+capacity: 0
+arr     :
+
+base_state: empty vector with 100 capacity
+
+size    : 0
+capacity: 1000
+arr     :
+
+base_state: 10 vector filled with range
+
+
+=====================insert range test=====================
+
+
+>>> action made: insert to end of empty with range from full and arithmetics
+size    : 32
+capacity: 32
+arr     :
+5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 
+25 26 27 28 29 30 31 32 33 34 35 36 
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+
+>>> action made: insert to end of above with range from other
+size    : 52
+capacity: 84
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 10 11 12 13 14 15 16 17 18 19 
+
+>>> action made: insert to begin of big cap empty with range from other
+size    : 10
+capacity: 1000
+arr     :
+10 11 12 13 14 15 16 17 18 19 
+
+=====================insert range test=====================
+
+
+>>> action made: insert to begin of small with range from itself
+size    : 20
+capacity: 20
+arr     :
+10 11 12 13 14 15 16 17 18 19 10 11 12 13 14 15 16 17 18 19 
+
+>>> action made: insert to end of above with range from itself
+size    : 40
+capacity: 40
+arr     :
+10 11 12 13 14 15 16 17 18 19 10 11 12 13 14 15 16 17 18 19 
+10 11 12 13 14 15 16 17 18 19 10 11 12 13 14 15 16 17 18 19 
+
+>>> action made: insert to end of above with range from itself and arithmetics
+size    : 74
+capacity: 80
+arr     :
+10 11 12 13 14 15 16 17 18 19 10 11 12 13 14 15 16 17 18 19 
+10 11 12 13 14 15 16 17 18 19 10 11 12 13 14 15 16 17 18 19 
+13 14 15 16 17 18 19 10 11 12 13 14 15 16 17 18 19 10 11 12 
+13 14 15 16 17 18 19 10 11 12 13 14 15 16 
+
+>>> action made: try to insert to above from incorrect range from itself
+size    : 74
+capacity: 80
+arr     :
+10 11 12 13 14 15 16 17 18 19 10 11 12 13 14 15 16 17 18 19 
+10 11 12 13 14 15 16 17 18 19 10 11 12 13 14 15 16 17 18 19 
+13 14 15 16 17 18 19 10 11 12 13 14 15 16 17 18 19 10 11 12 
+13 14 15 16 17 18 19 10 11 12 13 14 15 16 
+
+>>> action made: try to insert to above from incorrect max size iterator from itself
+size    : 74
+capacity: 80
+arr     :
+10 11 12 13 14 15 16 17 18 19 10 11 12 13 14 15 16 17 18 19 
+10 11 12 13 14 15 16 17 18 19 10 11 12 13 14 15 16 17 18 19 
+13 14 15 16 17 18 19 10 11 12 13 14 15 16 17 18 19 10 11 12 
+13 14 15 16 17 18 19 10 11 12 13 14 15 16 
+
+=====================erase test=====================
+
+base_state: 42 vector filled with range
+
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+base_state: empty vector
+
+size    : 0
+capacity: 0
+arr     :
+
+
+=====================erase test=====================
+
+
+>>> action made: erase the beginning from 42 full vector
+return value: 1
+size    : 41
+capacity: 42
+arr     :
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 
+41 
+
+>>> action made: erase the end from above
+return value is end
+size    : 40
+capacity: 42
+arr     :
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 
+
+>>> action made: erase from the 10th element of above
+return value: 12
+size    : 39
+capacity: 42
+arr     :
+1 2 3 4 5 6 7 8 9 10 12 13 14 15 16 17 18 19 20 21 
+22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 
+
+=====================erase range test (not correct range is ub)=====================
+
+
+>>> action made: erase range from above and arithmetics
+return value: 36
+size    : 10
+capacity: 42
+arr     :
+1 2 3 4 5 36 37 38 39 40 
+
+>>> action made: erase full range from above
+return value is end
+size    : 0
+capacity: 42
+arr     :
+
+
+=====================clear test=====================
+
+base_state: 42 vector filled with range
+
+size    : 42
+capacity: 42
+arr     :
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 
+40 41 
+base_state: empty vector
+
+size    : 0
+capacity: 0
+arr     :
+
+base_state: empty vector with 100 capacity
+
+size    : 0
+capacity: 1000
+arr     :
+
+base_state: 10 vector filled with range and 100 capacity
+
+
+=====================clear test=====================
+
+
+>>> action made: clear empty
+size    : 0
+capacity: 0
+arr     :
+
+
+>>> action made: clear big cap empty
+size    : 0
+capacity: 1000
+arr     :
+
+
+>>> action made: clear full
+size    : 0
+capacity: 42
+arr     :
+
+
+>>> action made: clear big cap full
+size    : 0
+capacity: 1000
+arr     :
+
+
+=====================relational operators test=====================
+
+base_state: 42 vector filled with sevens
+
+base_state: empty vector
+
+base_state: empty vector with 100 capacity
+
+base_state: 10 vector filled with sevens and 100 capacity
+
+
+=====================relational operators test=====================
+
+
+>>> action made: are each of 4 vectors equal to themselves
+1
+1
+1
+1
+
+>>> action made: are each of 4 vectors unequal to themselves
+0
+0
+0
+0
+
+>>> action made: test >
+empty > empty cap: 0
+empty_cap > empty: 0
+testy > testy_cap: 1
+testy_cap > testy: 0
+
+>>> action made: test <
+empty < empty cap: 0
+empty_cap < empty: 0
+testy < testy_cap: 0
+testy_cap < testy: 1
+
+>>> action made: test >=
+empty >= empty cap: 1
+empty_cap >= empty: 1
+testy >= testy_cap: 1
+testy_cap >= testy: 0
+
+>>> action made: test <=
+empty <= empty cap: 1
+empty_cap <= empty: 1
+testy <= testy_cap: 0
+testy_cap <= testy: 1
+
+=====================const iterators test=====================
+
+base_state: 42 vector filled with range
+
+base_state: 42 const vector filled with range and iterator
+
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 
+
+>>> action made: compare end it with begin it
+comparison > : 1
+comparison >= : 1
+comparison < : 0
+comparison <= : 0
+comparison == : 0
+difference: 41
+it_begin + 1: 1
+1 + it_begin: 1
+++it_begin: 1
+--it_begin: 0
+
+>>> action made: test const reverse iterator from non const vector
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 
+
+=====================reverse iterators test=====================
+
+base_state: 42 vector filled with range
+
+base_state: 42 const vector filled with range and reverse iterator
+
+41 40 39 38 37 36 35 34 33 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0 
+
+>>> action made: compare end it with begin it but now reverse
+comparison > : 1
+comparison >= : 1
+comparison < : 0
+comparison <= : 0
+comparison == : 0
+difference: 41
+it_begin + 1: 40
+1 + it_begin: 40
+++it_begin: 40
+--it_begin: 41
+
+>>> action made: test const iterator from non const vector
+41 40 39 38 37 36 35 34 33 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0 
+=====================vector relational operators test=====================
+
+base_state: two vectors: big and small
+
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 
+
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 
+
+
+=====================vector relational operators test=====================
+
+
+>>> action made: test comparison between vectors,  first is big, second is small
+test operator > : 1
+test operator >= : 1
+test operator < : 0
+test operator <= : 0
+test operator == : 0
+test operator != : 1
+
+=====================const and non const iterators comparison=====================
+
+base_state: two vectors and two end iterators: bigger non const and smaller const
+
+2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  
+
+2  2  2  2  2  2  2  2  2  2  
+
+=====================const and non const iterators comparison=====================
+
+
+>>> action made: test comparison between vectors, first is big non const, second is small const
+successfully compiled 
+
+>>> action made: now same thing but reverse iterators end rbegin
+successfully compiled 
 
 =====================Map tests=====================
 
@@ -12,42 +1028,467 @@
 
 
 >>> action made: default constructed Map
-fill with0
-input node 0
-input node 0
-fill with9
-one enter passed
-input node 9
-input node 9
-fill with1
-one enter passed
-input node 1
-input node 1
-fill with8
-one enter passed
-input node 8
-input node 8
-fill with2
-one enter passed
-input node 2
-input node 2
-fill with7
-one enter passed
-input node 7
-input node 7
-fill with3
-one enter passed
-input node 3
-input node 3
-fill with6
-one enter passed
-input node 6
-input node 6
-fill with4
-one enter passed
-input node 4
-input node 4
-fill with5
-one enter passed
-input node 5
-input node 5
+empty: 0 size: 10
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | 
+
+
+>>> action made: assign_node_no_value constructed Map
+empty: 0 size: 10
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | 
+
+
+>>> action made: range constructed Map from 1 to 9
+empty: 0 size: 8
+Map:
+key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | key: 4 val: 4 | 
+key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | key: 8 val: 8 | 
+
+
+=====================Map iterator test=====================
+
+base_state: Map with 10 range
+
+empty: 0 size: 10
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | 
+
+
+>>> action made: create begin and --end iterators, show them
+key: 0 val: 0
+key: 9 val: 9
+
+>>> action made: ++begin and show via *
+key: 1 val: 1
+show via -> : 1
+
+>>> action made: comparison of iterators equal and unequal to themselves
+it == it
+!(it != it)
+
+=====================Map const iterator test=====================
+
+
+>>> action made: take begin const from non const and show it
+show key via -> : 1
+show value via * : 1
+
+>>> action made: arithmetics and comparison but now const
+show key after ++ : 2
+show key after -- : 1
+const == const
+!(const != const)
+
+=====================Map reverse iterator test=====================
+
+
+>>> action made: create reverse begin and reverse --end iterators, show them
+show begin key via -> : 9
+show begin value via * : 9
+show end key via -> : 0
+show end value via * : 0
+
+>>> action made: reverse ++begin and show
+show key via -> : 8
+show value via * : 8
+
+>>> action made: comparison of reverse iterators equal and unequal to themselves
+reverse_it == reverse_it
+!(reverse_it != reverse_it)
+
+=====================Map const reverse iterator test=====================
+
+
+>>> action made: take const reverse from non const reverse and show it
+show key via -> : 9
+show value via * : 9
+
+>>> action made: arithmetics and comparison but now const reverse
+show key after ++ : 8
+show key after -- : 9
+reverse_const == reverse_const
+!(reverse_const != reverse_const)
+
+=====================Map small stuff test=====================
+
+base_state: Map with 10 range
+
+empty: 0 size: 10
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | 
+
+base_state: Map with 15 range
+
+empty: 0 size: 14
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 8 val: 8 | 
+key: 9 val: 9 | key: 10 val: 10 | key: 11 val: 11 | key: 12 val: 12 | 
+key: 13 val: 13 | key: 14 val: 14 | 
+
+
+>>> action made: swap full and big
+empty: 0 size: 14
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 8 val: 8 | 
+key: 9 val: 9 | key: 10 val: 10 | key: 11 val: 11 | key: 12 val: 12 | 
+key: 13 val: 13 | key: 14 val: 14 | 
+
+empty: 0 size: 10
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | 
+
+
+>>> action made: swap again with std swap(x, y)
+empty: 0 size: 10
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | 
+
+empty: 0 size: 14
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 8 val: 8 | 
+key: 9 val: 9 | key: 10 val: 10 | key: 11 val: 11 | key: 12 val: 12 | 
+key: 13 val: 13 | key: 14 val: 14 | 
+
+
+>>> action made: compare keys with key compare from full
+is 1 less then 2 bool: 1
+
+>>> action made: compare values with value compare from full
+is pair(1, test(1)) less then pair(1, test(1))  bool: 0
+
+=====================Map small stuff test=====================
+
+
+>>> action made: max size
+Compiled
+
+>>> action made: [] operator test with existing element
+return from [2]: 2
+empty: 0 size: 10
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | 
+
+
+>>> action made: [] operator test with not existing element
+return from [102]: 0
+empty: 0 size: 11
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | key: 102 val: 0 | 
+
+
+>>> action made: at with existing element
+return from at 2: 2
+
+>>> action made: at with not existing element
+map::at:  key not found
+empty: 0 size: 11
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | key: 102 val: 0 | 
+
+
+=====================Map insert test=====================
+
+base_state: Map with 10 range
+
+empty: 0 size: 10
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | 
+
+base_state: Map with 15 range
+
+empty: 0 size: 14
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 8 val: 8 | 
+key: 9 val: 9 | key: 10 val: 10 | key: 11 val: 11 | key: 12 val: 12 | 
+key: 13 val: 13 | key: 14 val: 14 | 
+
+base_state: empty Map
+
+empty: 1 size: 0
+Map:
+
+
+
+>>> action made: insert 42 val to empty
+empty: 0 size: 1
+Map:
+key: 42 val: 42 | 
+
+return iterator key: 42
+return iterator value: 42
+return bool: 1
+
+>>> action made: insert existing 7 val to full
+empty: 0 size: 10
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | 
+
+return iterator key: 7
+return iterator value: 7
+return bool: 0
+
+>>> action made: insert non existing 42 val to full
+empty: 0 size: 11
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | key: 42 val: 42 | 
+
+return iterator key: 42
+return iterator value: 42
+return bool: 1
+
+>>> action made: insert range from bigger (15) to above
+empty: 0 size: 16
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | key: 10 val: 10 | key: 11 val: 11 | 
+key: 12 val: 12 | key: 13 val: 13 | key: 14 val: 14 | key: 42 val: 42 | 
+
+
+>>> action made: insert existing 42 with right_ position to above
+return: 42
+empty: 0 size: 16
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | key: 10 val: 10 | key: 11 val: 11 | 
+key: 12 val: 12 | key: 13 val: 13 | key: 14 val: 14 | key: 42 val: 42 | 
+
+
+>>> action made: insert not existing 21 with wrong position to above
+return: 21
+empty: 0 size: 17
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | key: 10 val: 10 | key: 11 val: 11 | 
+key: 12 val: 12 | key: 13 val: 13 | key: 14 val: 14 | key: 21 val: 21 | 
+key: 42 val: 42 | 
+
+
+>>> action made: insert not existing 43 with right_ position to above
+return: 43
+empty: 0 size: 18
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | key: 10 val: 10 | key: 11 val: 11 | 
+key: 12 val: 12 | key: 13 val: 13 | key: 14 val: 14 | key: 21 val: 21 | 
+key: 42 val: 42 | key: 43 val: 43 | 
+
+
+>>> action made: insert 42 with position to empty
+return: 42
+empty: 0 size: 1
+Map:
+key: 42 val: 42 | 
+
+
+=====================Map erase test=====================
+
+base_state: Map with 10 range
+
+empty: 0 size: 10
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | 
+
+base_state: Map with 15 range
+
+empty: 0 size: 14
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 8 val: 8 | 
+key: 9 val: 9 | key: 10 val: 10 | key: 11 val: 11 | key: 12 val: 12 | 
+key: 13 val: 13 | key: 14 val: 14 | 
+
+base_state: empty Map
+
+empty: 1 size: 0
+Map:
+
+
+
+>>> action made: erase ++begin from full 10
+empty: 0 size: 9
+Map:
+key: 0 val: 0 | key: 2 val: 2 | key: 3 val: 3 | key: 4 val: 4 | 
+key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | key: 8 val: 8 | 
+key: 9 val: 9 | 
+
+
+>>> action made: erase not existing 2 key from above
+empty: 0 size: 8
+Map:
+key: 0 val: 0 | key: 3 val: 3 | key: 4 val: 4 | key: 5 val: 5 | 
+key: 6 val: 6 | key: 7 val: 7 | key: 8 val: 8 | key: 9 val: 9 | 
+
+
+=====================Map erase test=====================
+
+
+>>> action made: erase existing 7 key from above
+empty: 0 size: 7
+Map:
+key: 0 val: 0 | key: 3 val: 3 | key: 4 val: 4 | key: 5 val: 5 | 
+key: 6 val: 6 | key: 8 val: 8 | key: 9 val: 9 | 
+
+
+>>> action made: erase range from ++begin to --end from above
+empty: 0 size: 2
+Map:
+key: 0 val: 0 | key: 9 val: 9 | 
+
+
+>>> action made: erase full range from empty
+empty: 1 size: 0
+Map:
+
+
+
+>>> action made: erase full range from full 15
+empty: 1 size: 0
+Map:
+
+
+
+=====================Map operations test=====================
+
+base_state: Map with 10 range
+
+empty: 0 size: 10
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | 
+
+base_state: empty Map
+
+empty: 1 size: 0
+Map:
+
+
+
+>>> action made: find key 5 in 10 map and show iterator and next after it
+key: 5 val: 5
+key: 6 val: 6
+
+>>> action made: same but now const
+iterator key: 5
+++iterator key: 6
+
+>>> action made: find not existing key 42 in 10 map and show --it from its return
+key: 9 val: 9
+
+>>> action made: find existing key 5 in 10 map and show the return
+1
+
+>>> action made: find not existing key 42 in 10 map and show the return
+0
+
+>>> action made: show lower and upper bound and equal range iterators for existing 5 key
+lower bound: key: 5 val: 5
+upper bound: key: 6 val: 6
+equal range: lower bound: key: 5 val: 5
+upper bound: key: 6 val: 6
+
+>>> action made: same but now const
+lower bound: iterator key: 5
+upper bound: iterator key: 6
+equal range: lower bound: iterator key: 5
+upper bound: iterator key: 6
+
+>>> action made: show lower and upper bound and equal range --iterators for not existing 42 key
+lower bound: key: 9 val: 9
+upper bound: key: 9 val: 9
+equal range: lower bound: key: 9 val: 9
+upper bound: key: 9 val: 9
+
+=====================map relational operators test=====================
+
+base_state: Map with 10 range
+
+empty: 0 size: 10
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 7 val: 7 | 
+key: 8 val: 8 | key: 9 val: 9 | 
+
+base_state: Map with 15 range (testy big)
+
+empty: 0 size: 14
+Map:
+key: 0 val: 0 | key: 1 val: 1 | key: 2 val: 2 | key: 3 val: 3 | 
+key: 4 val: 4 | key: 5 val: 5 | key: 6 val: 6 | key: 8 val: 8 | 
+key: 9 val: 9 | key: 10 val: 10 | key: 11 val: 11 | key: 12 val: 12 | 
+key: 13 val: 13 | key: 14 val: 14 | 
+
+base_state: empty Map
+
+empty: 1 size: 0
+Map:
+
+
+
+=====================relational operators test=====================
+
+
+>>> action made: are each of 3 vectors equal to themselves
+1
+1
+1
+
+>>> action made: are each of 3 vectors unequal to themselves
+0
+0
+0
+
+>>> action made: test >
+empty > empty cap: 0
+testy > testy_big: 0
+testy_big > testy: 1
+
+>>> action made: test <
+empty < empty: 0
+testy < testy_big: 1
+testy_big < testy: 0
+
+>>> action made: test >=
+empty >= empty: 1
+testy >= testy_big: 0
+testy_big >= testy: 1
+
+>>> action made: test <=
+empty <= empty: 1
+testy <= testy_big: 1
+testy_big <= testy: 0

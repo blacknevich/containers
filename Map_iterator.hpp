@@ -53,27 +53,27 @@ namespace ft {
 
 			// ++it
 			iterator& operator++() {
-				node = nextNode(node);
+				node = next_key_node(node);
 				return *this;
 			}
 
 			// it++
 			iterator operator++(int) {
 				iterator old = *this;
-				node = nextNode(node);
+				node = next_key_node(node);
 				return old;
 			}
 
 			// --it
 			iterator& operator--() {
-				node = prevNode(node);
+				node = prev_key_node(node);
 				return *this;
 			}
 
 			// it--
 			iterator operator--(int) {
 				iterator old = *this;
-				node = prevNode(node);
+				node = prev_key_node(node);
 				return old;
 			}
 
@@ -90,7 +90,7 @@ namespace ft {
 		private:
 			node_type node;
 
-			node_type nextNode(node_type x){
+			node_type next_key_node(node_type x){
 				if (x->is_null) {
 					if (x->parent_) return x->parent_;
 					return x->left_;
@@ -115,7 +115,7 @@ namespace ft {
 				return y;
 			}
 
-			node_type prevNode(node_type x){
+			node_type prev_key_node(node_type x){
 				if (x->is_null) {
 					if (x->parent_) return x->parent_;
 					return x->right_;

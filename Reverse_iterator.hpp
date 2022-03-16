@@ -22,24 +22,24 @@ namespace ft {
         typedef typename Iterator::difference_type                          difference_type;
         typedef typename Iterator::pointer                                  pointer;
         typedef typename Iterator::reference                                reference;
-        //================================end typedef================================
+        //================================get_tree_end typedef================================
 
         //============================constructors==================================
         Reverse_iterator() : current() {} //default
         explicit Reverse_iterator(iterator_type it) : current(it) {} //initialization
         template<class Iter>
         Reverse_iterator(const Reverse_iterator<Iter> &rev_it) : current(rev_it.base()) {} //assign_node_no_value
-        //======================end constructors====================================
+        //======================get_tree_end constructors====================================
 
         //============================destructor====================================
         ~Reverse_iterator() {}
-        //============================end destructor================================
+        //============================get_tree_end destructor================================
 
         //============================member functions==============================
         iterator_type base() const {
             return current;
         }
-        //============================end member functions==========================
+        //============================get_tree_end member functions==========================
 
         //============================operators====================================
         // rev = rev
@@ -134,11 +134,11 @@ namespace ft {
         Reverse_iterator operator[](difference_type n) const {
             return current[-n];
         }
-        //==========================end operators==================================
+        //==========================get_tree_end operators==================================
     protected:
         iterator_type current;
     };
-    //=========================end return iterator class===============================
+    //=========================get_tree_end return iterator class===============================
 
     //=========================relational operators===============================
 

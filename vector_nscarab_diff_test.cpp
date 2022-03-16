@@ -47,7 +47,12 @@ public:
         return (*this);
     }
 
-     bool operator==(Test const & rhs) const {return(some_ == rhs.some_);}
+    bool operator==(Test const & rhs) const {return(some_ == rhs.some_);}
+    bool operator!=(Test const & rhs) const {return(some_ != rhs.some_);}
+    bool operator<(Test const & rhs) const {return(some_ < rhs.some_);}
+    bool operator<=(Test const & rhs) const {return(some_ <= rhs.some_);}
+    bool operator>(Test const & rhs) const {return(some_ > rhs.some_);}
+    bool operator>=(Test const & rhs) const {return(some_ >= rhs.some_);}
 
     int   some_;
     char* str_;
@@ -127,26 +132,24 @@ void show_vector_info(lib::con<Test> & vector) {
 
 template <class KEY, class VAL>
 void print_map_info(lib::coma<int, Test> & map) {
-    if (!map.empty())
-        std::cout << "a" << std::endl;
-//    typename lib::coma<int, Test>::iterator it;
-//    typename lib::coma<int, Test>::iterator it(map.begin());
+    typename lib::coma<int, Test>::iterator it(map.begin());
 
-//    std::cout
-//            << "empty: " << map.empty()
-//            << " size: "  << map.size() << "\n"
-//            << "map:" << std::endl;
-//    size_t i = 0;
-//    while (it != map.end()) {
-//        if (i != 0 && i % 4 == 0) {
-//            std::cout << "\n";
-//        }
-//        std::cout << "key: "  << (*it).first
-//                  << " val: " << (*it).second.some_ << " | ";
-//        ++i;
-//        ++it;
-//    }
-//    std::cout << std::endl;
+    std::cout
+            << "empty: " << map.empty()
+            << " size: "  << map.size() << "\n"
+            << "Map:" << std::endl;
+    size_t i = 0;
+    while (it != map.end()) {
+        if (i != 0 && i % 4 == 0) {
+            std::cout << "\n";
+        }
+        std::cout << "key: "  << (*it).first
+                  << " val: " << (*it).second.some_ << " | ";
+        ++i;
+        ++it;
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
 }
 
 void show_map_iterator(lib::coma<int, Test>::iterator it) {
@@ -174,9 +177,9 @@ void fill_array_with_123(lib::con<Test> & vector, size_t start) {
 
 void balancly_fill_map_with_range(lib::coma<int, Test> & map, int n) {
     for (int i = 0; i < n/2; ++i) {
-        std::cout << "fill with" << i << std::endl;
+//        std::cout << "fill with" << i << std::endl;
         map.insert(lib::pair<int, Test>(i, i));
-        std::cout << "fill with" << n - i - 1 << std::endl;
+//        std::cout << "fill with" << n - i - 1 << std::endl;
         map.insert(lib::pair<int, Test>(n - i - 1, n - i - 1));
     }
 
@@ -208,7 +211,7 @@ void fill_val_constructor() {
 }
 
 void copy_constructor() {
-    test_announce("copy constructor");
+    test_announce("assign_node_no_value constructor");
     lib::con<Test> base(42, 7);
     fill_array_with_123(base, 0);
     base.reserve(1000);
@@ -318,13 +321,13 @@ void operator_assignment() {
     fill_array_with_123(testy, 0);
     show_vector_info(testy);
 
-    action_announce("assign get_node to empty container");
+    action_announce("are_values_equal get_node to empty container");
     lib::con<Test> empty;
     lib::con<Test> copy(testy);
     testy = empty;
     show_vector_info(testy);
 
-    action_announce("assign empty to fool");
+    action_announce("are_values_equal empty to fool");
     testy = copy;
     show_vector_info(testy);
 }
@@ -406,7 +409,7 @@ void element_access_test() {
 // Modifiers ===================================================================
 
 void assign_range_test() {
-    test_announce("assign range test");
+    test_announce("are_values_equal range test");
     base_state_announce("42 vector filled with range");
     lib::con<Test> testy(42);
     fill_array_with_123(testy, 0);
@@ -425,42 +428,42 @@ void assign_range_test() {
     lib::con<Test> small_testy(10);
     fill_array_with_123(small_testy, 10);
 
-    test_announce("assign range test");
+    test_announce("are_values_equal range test");
 
-    action_announce("assign full with range from empty");
+    action_announce("are_values_equal full with range from empty");
     lib::con<Test> copy(testy);
     copy.assign(empty.begin(), empty.end());
     show_vector_info(copy);
 
-    action_announce("assign empty with range from full with arithmetics");
+    action_announce("are_values_equal empty with range from full with arithmetics");
     empty.assign(testy.begin() + 5, testy.end() - 5);
     show_vector_info(empty);
     show_vector_info(testy);
 
-    action_announce("assign to full 42 from small vector");
+    action_announce("are_values_equal to full 42 from small vector");
     testy.assign(small_testy.begin(), small_testy.end());
     show_vector_info(testy);
     show_vector_info(small_testy);
 
-    action_announce("assign to big capacity empty from above");
+    action_announce("are_values_equal to big capacity empty from above");
     empty_cap.assign(small_testy.begin(), small_testy.end());
     show_vector_info(empty_cap);
 
-    test_announce("assign range test");
+    test_announce("are_values_equal range test");
 
-    action_announce("assign to full vector with range from itself");
+    action_announce("are_values_equal to full vector with range from itself");
     show_vector_info(testy);
     testy.assign(testy.begin(), testy.end());
     show_vector_info(testy);
 
-    action_announce("assign to vector above with range from itself + arithmetics");
+    action_announce("are_values_equal to vector above with range from itself + arithmetics");
     show_vector_info(testy);
     testy.assign(testy.begin() + 3, testy.end() - 3);
     show_vector_info(testy);
 
-    test_announce("assign range test");
+    test_announce("are_values_equal range test");
 
-    action_announce("try to assign from incorrect range from itself");
+    action_announce("try to are_values_equal from incorrect range from itself");
     try {
         testy.assign(testy.begin() + 10, testy.begin());
     } catch(std::exception & e) {
@@ -468,7 +471,7 @@ void assign_range_test() {
     }
     show_vector_info(testy);
 
-    action_announce("try to assign from above max size iterator from itself");
+    action_announce("try to are_values_equal from above max size iterator from itself");
     try {
         small_testy.assign(small_testy.begin(), (small_testy.begin() + small_testy.max_size()));
     } catch(std::exception & e) {
@@ -478,7 +481,7 @@ void assign_range_test() {
 }
 
 void assign_fill_test() {
-    test_announce("assign fill test");
+    test_announce("are_values_equal fill test");
     base_state_announce("42 vector filled with range");
     lib::con<Test> testy(42);
     fill_array_with_123(testy, 0);
@@ -493,21 +496,21 @@ void assign_fill_test() {
     empty_cap.reserve(1000);
     show_vector_info(empty_cap);
 
-    test_announce("assign fill test");
+    test_announce("are_values_equal fill test");
 
-    action_announce("assign to empty with 42 sevens");
+    action_announce("are_values_equal to empty with 42 sevens");
     empty.assign(42, 7);
     show_vector_info(empty);
 
-    action_announce("assign to full with 42 sevens");
+    action_announce("are_values_equal to full with 42 sevens");
     testy.assign(42, 7);
     show_vector_info(testy);
 
-    action_announce("assign to big capacity empty with 42 sevens");
+    action_announce("are_values_equal to big capacity empty with 42 sevens");
     empty_cap.assign(42, 7);
     show_vector_info(empty_cap);
 
-    action_announce("assign to above with 0 sevens");
+    action_announce("are_values_equal to above with 0 sevens");
     empty_cap.assign(0, 7);
     show_vector_info(empty_cap);
 }
@@ -575,7 +578,7 @@ void small_stuff_test() {
     action_announce("return size of above - max_size() test");
     std::cout << testy.max_size() << std::endl;
 
-    action_announce("see whether data return is not null and compiles - data() test");
+    action_announce("see whether n_val_ return is not null and compiles - n_val_() test");
     if (testy.data())
         std::cout << "successfully compiled" << std::endl;
 
@@ -1103,38 +1106,29 @@ void stack_test() {
 }
 
 void map_construction_test() {
-    test_announce("map construction test");
-    action_announce("default constructed map");
+    test_announce("Map construction test");
+    action_announce("default constructed Map");
     lib::coma<int, Test> testy;
     balancly_fill_map_with_range(testy, 10);
-//    print_map_info<int, Test>(testy);
+    print_map_info<int, Test>(testy);
 
-//    action_announce("copy constructed map");
-//    lib::coma<int, Test> copy(testy);
-//    print_map_info<int, Test>(copy);
+    action_announce("assign_node_no_value constructed Map");
+    lib::coma<int, Test> copy(testy);
+    print_map_info<int, Test>(copy);
 
-//    action_announce("range constructed map from 1 to 9th");
-//    lib::coma<int, Test> range(++testy.begin(), --testy.end());
-//    print_map_info<int, Test>(range);
-//
-////    std::cout << (*(testy.insert(ft::make_pair(11,Test()))).first).second.some_ << std::endl;
-//    std::cout << testy[11].some_ << std::endl;
-//    print_map_info<int, Test>(testy);
-//    std::cout << testy.equal_range(0).first->first << std::endl;
-//    std::cout << testy.equal_range(0).second->first << std::endl;
-//
-//
-//    lib::coma<int, Test> testy2;
-//    balancly_fill_map_with_range(testy2, 10);
-//    if (testy != testy2)
-//        std::cout << "compliled" << std::endl;
+    action_announce("range constructed Map from 1 to 9");
+    lib::coma<int, Test> range(++testy.begin(), --testy.end());
+    print_map_info<int, Test>(range);
+
 }
 
 void map_iterator_test () {
-    test_announce("map iterator test");
-    base_state_announce("map with 10 range");
+    test_announce("Map iterator test");
+    base_state_announce("Map with 10 range");
     lib::coma<int, Test> testy;
     lib::coma<const int, const Test> const_testy;
+    const_testy.insert(lib::pair<int, Test>(1, Test(1)));
+    const_testy.insert(lib::pair<int, Test>(2, Test(2)));
     balancly_fill_map_with_range(testy, 10);
     print_map_info<int, Test>(testy);
 
@@ -1155,7 +1149,7 @@ void map_iterator_test () {
     if (!(it != it))
         std::cout << "!(it != it)" << std::endl;
 
-    test_announce("map const iterator test");
+    test_announce("Map const iterator test");
 
     action_announce("take begin const from non const and show it");
     lib::coma<const int, const Test>::const_iterator abominashion(const_testy.begin());
@@ -1172,7 +1166,7 @@ void map_iterator_test () {
     if (!(abominashion != abominashion))
         std::cout << "!(const != const)" << std::endl;
 
-    test_announce("map reverse iterator test");
+    test_announce("Map reverse iterator test");
 
     action_announce("create reverse begin and reverse --end iterators, show them");
     lib::coma<int, Test>::reverse_iterator reverse_it(testy.rbegin());
@@ -1193,7 +1187,7 @@ void map_iterator_test () {
     if (!(reverse_it != reverse_it))
         std::cout << "!(reverse_it != reverse_it)" << std::endl;
 
-    test_announce("map const reverse iterator test");
+    test_announce("Map const reverse iterator test");
 
     action_announce("take const reverse from non const reverse and show it");
     lib::coma<int, Test>::const_reverse_iterator reverse_abominashion(testy.rbegin());
@@ -1212,17 +1206,45 @@ void map_iterator_test () {
 }
 
 void map_small_stuff_test() {
-    test_announce("map small stuff test");
-    base_state_announce("map with 10 range");
+    test_announce("Map small stuff test");
+    base_state_announce("Map with 10 range");
     lib::coma<int, Test> testy;
     balancly_fill_map_with_range(testy, 10);
     print_map_info<int, Test>(testy);
 
+    base_state_announce("Map with 15 range");
+    lib::coma<int, Test> small_testy;
+    balancly_fill_map_with_range(small_testy, 15);
+    print_map_info<int, Test>(small_testy);
+
+    action_announce("swap full and big");
+    testy.swap(small_testy);
+    print_map_info<int, Test>(testy);
+    print_map_info<int, Test>(small_testy);
+
+    action_announce("swap again with std swap(x, y)");
+    std::swap(testy, small_testy);
+    print_map_info<int, Test>(testy);
+    print_map_info<int, Test>(small_testy);
+
+    action_announce("compare keys with key compare from full");
+    std::cout << "is 1 less then 2 bool: " << testy.key_comp()(1, 2) << std::endl;
+
+    action_announce("compare values with value compare from full");
+    lib::coma<int, Test>::value_compare  comp = testy.value_comp();
+    std::cout << "is pair(1, test(1)) less then pair(1, test(1))  bool: " <<
+    comp(lib::pair<int, Test>(1, Test(1)), lib::pair<int, Test>(1, Test(1))) << std::endl;
+
+    test_announce("Map small stuff test");
+
     action_announce("max size");
-    std::cout << "max size: " << testy.max_size() << std::endl;
+    if (testy.max_size() > 1000000)
+        std::cout << "Compiled" << std::endl;
 
     action_announce("[] operator test with existing element");
     std::cout << "return from [2]: " << testy[2].some_ << std::endl;
+    print_map_info<int, Test>(testy);
+
     action_announce("[] operator test with not existing element");
     std::cout << "return from [102]: " << testy[102].some_ << std::endl;
     print_map_info<int, Test>(testy);
@@ -1237,21 +1259,22 @@ void map_small_stuff_test() {
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;
     }
+    print_map_info<int, Test>(testy);
 }
 
 void map_insert_test() {
-    test_announce("map insert test");
-    base_state_announce("map with 10 range");
+    test_announce("Map insert test");
+    base_state_announce("Map with 10 range");
     lib::coma<int, Test> testy;
     balancly_fill_map_with_range(testy, 10);
     print_map_info<int, Test>(testy);
 
-    base_state_announce("map with 15 range");
+    base_state_announce("Map with 15 range");
     lib::coma<int, Test> small_testy;
     balancly_fill_map_with_range(small_testy, 15);
     print_map_info<int, Test>(small_testy);
 
-    base_state_announce("empty map");
+    base_state_announce("empty Map");
     lib::coma<int, Test> empty;
     lib::coma<int, Test> empty2;
     print_map_info<int, Test>(empty);
@@ -1282,7 +1305,7 @@ void map_insert_test() {
     testy.insert(small_testy.begin(), small_testy.end());
     print_map_info<int, Test>(testy);
 
-    action_announce("insert existing 42 with right position to above");
+    action_announce("insert existing 42 with right_ position to above");
     std::cout << "return: " << testy.insert(--testy.end(), lib::pair<int, Test>(42, 42))->first <<std::endl;
     print_map_info<int, Test>(testy);
 
@@ -1290,7 +1313,7 @@ void map_insert_test() {
     std::cout << "return: " << testy.insert(--testy.end(), lib::pair<int, Test>(21, 21))->first <<std::endl;
     print_map_info<int, Test>(testy);
 
-    action_announce("insert not existing 43 with right position to above");
+    action_announce("insert not existing 43 with right_ position to above");
     std::cout << "return: " << testy.insert(--testy.end(), lib::pair<int, Test>(43, 43))->first <<std::endl;
     print_map_info<int, Test>(testy);
 
@@ -1299,40 +1322,209 @@ void map_insert_test() {
     print_map_info<int, Test>(empty2);
 }
 
-void ft_modifiers_test() {
-	assign_range_test();
-    assign_fill_test();
-    push_back_test();
-    small_stuff_test();
-    insert_val_test();
-    insert_fill_test();
-    insert_range_test();
-	erase_test();
-    clear_test();
-    relational_operators();
+void map_erase_test() {
+    test_announce("Map erase test");
+    base_state_announce("Map with 10 range");
+    lib::coma<int, Test> testy;
+    balancly_fill_map_with_range(testy, 10);
+    print_map_info<int, Test>(testy);
+
+    base_state_announce("Map with 15 range");
+    lib::coma<int, Test> small_testy;
+    balancly_fill_map_with_range(small_testy, 15);
+    print_map_info<int, Test>(small_testy);
+
+    base_state_announce("empty Map");
+    lib::coma<int, Test> empty;
+    print_map_info<int, Test>(empty);
+
+    action_announce("erase ++begin from full 10");
+    testy.erase(++testy.begin());
+    print_map_info<int, Test>(testy);
+
+    action_announce("erase not existing 2 key from above");
+    testy.erase(2);
+    print_map_info<int, Test>(testy);
+
+    test_announce("Map erase test");
+
+    action_announce("erase existing 7 key from above");
+    testy.erase(7);
+    print_map_info<int, Test>(testy);
+
+    action_announce("erase range from ++begin to --end from above");
+    testy.erase(++testy.begin(), --testy.end());
+    print_map_info<int, Test>(testy);
+
+    action_announce("erase full range from empty");
+    empty.erase(empty.begin(), empty.end());
+    print_map_info<int, Test>(empty);
+
+    action_announce("erase full range from full 15");
+    small_testy.erase(small_testy.begin(), small_testy.end());
+    print_map_info<int, Test>(small_testy);
+}
+
+void map_operations_test() {
+
+    test_announce("Map operations test");
+    base_state_announce("Map with 10 range");
+    lib::coma<int, Test> testy;
+    balancly_fill_map_with_range(testy, 10);
+    print_map_info<int, Test>(testy);
+
+    base_state_announce("empty Map");
+    lib::coma<int, Test> empty;
+    print_map_info<int, Test>(empty);
+
+    lib::coma<int, Test>::iterator it;
+    lib::coma<int, Test>::const_iterator const_it;
+
+    action_announce("find key 5 in 10 map and show iterator and next after it");
+    it = testy.find(5);
+    show_map_iterator(it);
+    show_map_iterator(++it);
+
+    action_announce("same but now const");
+    const_it = testy.find(5);
+    std::cout << "iterator key: " << const_it->first << std::endl;
+    std::cout << "++iterator key: " << (++const_it)->first << std::endl;
+
+    action_announce("find not existing key 42 in 10 map and show --it from its return");
+    it = testy.find(42);
+    show_map_iterator(--it);
+
+    action_announce("find existing key 5 in 10 map and show the return");
+    std::cout << testy.count(5) << std::endl;
+
+    action_announce("find not existing key 42 in 10 map and show the return");
+    std::cout << testy.count(42) << std::endl;
+
+    action_announce("show lower and upper bound and equal range iterators for existing 5 key");
+    std::cout << "lower bound: ";
+    show_map_iterator(testy.lower_bound(5));
+    std::cout << "upper bound: ";
+    show_map_iterator(testy.upper_bound(5));
+    std::cout << "equal range: ";
+    std::cout << "lower bound: ";
+    show_map_iterator(testy.equal_range(5).first);
+    std::cout << "upper bound: ";
+    show_map_iterator(testy.equal_range(5).second);
+
+    action_announce("same but now const");
+    const_it = testy.lower_bound(5);
+    std::cout << "lower bound: ";
+    std::cout << "iterator key: " << const_it->first << std::endl;
+    const_it = testy.upper_bound(5);
+    std::cout << "upper bound: ";
+    std::cout << "iterator key: " << const_it->first << std::endl;
+    std::cout << "equal range: ";
+    std::cout << "lower bound: ";
+    const_it = testy.equal_range(5).first;
+    std::cout << "iterator key: " << const_it->first << std::endl;
+    std::cout << "upper bound: ";
+    const_it = testy.equal_range(5).second;
+    std::cout << "iterator key: " << const_it->first << std::endl;
+
+    action_announce("show lower and upper bound and equal range --iterators for not existing 42 key");
+    std::cout << "lower bound: ";
+    show_map_iterator(--testy.lower_bound(42));
+    std::cout << "upper bound: ";
+    show_map_iterator(--testy.upper_bound(42));
+    std::cout << "equal range: ";
+    std::cout << "lower bound: ";
+    show_map_iterator(--testy.equal_range(42).first);
+    std::cout << "upper bound: ";
+    show_map_iterator(--testy.equal_range(42).second);
+}
+
+void map_relational_operators() {
+    test_announce("map relational operators test");
+
+    base_state_announce("Map with 10 range");
+    lib::coma<int, Test> testy;
+    balancly_fill_map_with_range(testy, 10);
+    print_map_info<int, Test>(testy);
+
+    base_state_announce("Map with 15 range (testy big)");
+    lib::coma<int, Test> small_testy;
+    balancly_fill_map_with_range(small_testy, 15);
+    print_map_info<int, Test>(small_testy);
+
+    base_state_announce("empty Map");
+    lib::coma<int, Test> empty;
+    print_map_info<int, Test>(empty);
+
+
+    test_announce("relational operators test");
+
+    action_announce("are each of 3 vectors equal to themselves");
+    std::cout << (empty     == empty)     << std::endl;
+    std::cout << (testy     == testy)     << std::endl;
+    std::cout << (small_testy == small_testy) << std::endl;
+
+    action_announce("are each of 3 vectors unequal to themselves");
+    std::cout << (empty     != empty)     << std::endl;
+    std::cout << (testy     != testy)     << std::endl;
+    std::cout << (small_testy != small_testy) << std::endl;
+
+    action_announce("test >");
+    std::cout << "empty > empty cap: " << (empty > empty) << std::endl;
+    std::cout << "testy > testy_big: "<< (testy     > small_testy)     << std::endl;
+    std::cout << "testy_big > testy: " << (small_testy > testy) << std::endl;
+
+    action_announce("test <");
+    std::cout << "empty < empty: " << (empty < empty) << std::endl;
+    std::cout << "testy < testy_big: " << (testy     < small_testy)     << std::endl;
+    std::cout << "testy_big < testy: " << (small_testy < testy) << std::endl;
+
+    action_announce("test >=");
+    std::cout << "empty >= empty: " << (empty >=empty) << std::endl;
+    std::cout << "testy >= testy_big: " << (testy     >= small_testy)     << std::endl;
+    std::cout << "testy_big >= testy: " << (small_testy >= testy) << std::endl;
+
+    action_announce("test <=");
+    std::cout << "empty <= empty: " << (empty <=empty) << std::endl;
+    std::cout << "testy <= testy_big: " << (testy     <= small_testy)     << std::endl;
+    std::cout << "testy_big <= testy: " << (small_testy <= testy) << std::endl;
+
 }
 
 // =============================================================================
 
 int main(void)
 {
-//    construction_tests();
-//    operator_assignment();
-//    iterator_test();
-//    element_access_test();
-//    ft_modifiers_test();
-//    const_iterators();
-//    reverse_iterators();
-//    vector_relational_operators();
-//    const_vs_non_const_it();
+// ==============================vector==========================================
+    construction_tests();
+    operator_assignment();
+    iterator_test();
+    element_access_test();
+    assign_range_test();
+    assign_fill_test();
+    push_back_test();
+    small_stuff_test();
+    insert_val_test();
+    insert_fill_test();
+    insert_range_test();
+    erase_test();
+    clear_test();
+    relational_operators();
+
+    const_iterators();
+    reverse_iterators();
+    vector_relational_operators();
+    const_vs_non_const_it();
+// =================================stack=======================================
 //    stack_test();
-    test_announce("map tests");
-    test_announce("map tests");
-    test_announce("map tests");
+// =================================map=========================================
+    test_announce("Map tests");
 
     map_construction_test();
-//    map_iterator_test();
-//    map_small_stuff_test();
-//    map_insert_test();
+    map_iterator_test();
+    map_small_stuff_test();
+    map_insert_test();
+    map_erase_test();
+    map_operations_test();
+    map_relational_operators();
     return 0;
 }

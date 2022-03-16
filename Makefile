@@ -1,7 +1,7 @@
 #####################################flags#######################################
 CXX			= clang++
 CPPFLAGS		= -Wall -Wextra -Werror --std=c++98
-SANITIZE	= -fsanitize=address
+#SANITIZE	= -fsanitize=address
 #####################################headers#######################################
 INC_FILES		= iter.hpp
 INC				=$(addprefix -I, $(INC_FILES))

@@ -51,7 +51,7 @@ namespace ft {
         typedef ft::Reverse_iterator<iterator>                              reverse_iterator;
         typedef ft::Reverse_iterator<const_iterator>                        const_reverse_iterator;
         typedef typename ft::iterator_traits<iterator>::difference_type     difference_type;
-        //================================end typedef===============================
+        //================================get_tree_end typedef===============================
 
         //=============================private variables============================
     private:
@@ -59,7 +59,7 @@ namespace ft {
         size_type size_;
         size_type capacity_;
         allocator_type alloc_;
-        //===========================end private variables==========================
+        //===========================get_tree_end private variables==========================
 
     public:
         //============================constructors==================================
@@ -115,7 +115,7 @@ namespace ft {
             }
             //this->operator=(x);
         }//assign_node_no_value
-        //======================end constructors====================================
+        //======================get_tree_end constructors====================================
 
         //============================destructor====================================
         ~Vector() {
@@ -125,7 +125,7 @@ namespace ft {
             size_ = 0;
             capacity_ = 0;
         }
-        //============================end destructor================================
+        //============================get_tree_end destructor================================
 
         //=======================assignation operator===============================
        Vector& operator= (const Vector& x) {
@@ -144,7 +144,7 @@ namespace ft {
             size_ = x.size_;
             return (*this);
         }
-        //===================end assignation operator===============================
+        //===================get_tree_end assignation operator===============================
 
         //============================iterators====================================
         iterator begin() {
@@ -202,7 +202,7 @@ namespace ft {
                 return;
             }
 //            else
-//                insert(end(), n, val);
+//                insert(get_tree_end(), n, val);
 
             if (n <= capacity_) { //construct more elements
                 for (size_type i = size_; i < n; ++i)
@@ -251,7 +251,7 @@ namespace ft {
             capacity_ = n;
             arr_ = tmp_arr;
         }
-        //==========================end capacity====================================
+        //==========================get_tree_end capacity====================================
 
         //==========================element access==================================
         reference operator[] (size_type n) {
@@ -298,7 +298,7 @@ namespace ft {
             return (arr_);
         }
 
-        //=======================end element access=================================
+        //=======================get_tree_end element access=================================
 
         //=============================modifiers====================================
         template <class InputIterator>
@@ -322,7 +322,7 @@ namespace ft {
 
 
 //            clear();
-//            difference_type size_new = std::distance(first, last);
+//            difference_type size_new = std::distance(first, get_tree_last);
 //            if (size_new < 0) {
 //                this->~Vector();
 //                throw FtLengthError();
@@ -333,7 +333,7 @@ namespace ft {
 ////               reserve(size_new);
 //                    arr_ = alloc_.allocate(size_new);
 //                }
-//                std::assign_node_no_value(first, last, begin());
+//                std::assign_node_no_value(first, get_tree_last, get_tree_begin());
 //            }
         } //range
 
@@ -353,7 +353,7 @@ namespace ft {
                 reserve(capacity_ * 2);
             alloc_.construct(arr_ + size_, backup);
             ++size_;
-//            insert(end(), val);
+//            insert(get_tree_end(), val);
         }
 
         void pop_back() {
@@ -379,7 +379,7 @@ namespace ft {
             if (capacity_ >= size_ + n) {
                 size_type end_index = (size_ == 0) ? 0 : size_ - 1;
 
-                // moving from end to begin the part after insert place
+                // moving from get_tree_end to get_tree_begin the part after insert place
                 for (size_type i = insert_place_ind; i < size_; ++i, --end_index) {
                     memmove
                             (
@@ -539,7 +539,7 @@ namespace ft {
             return alloc_;
             //return allocator_type(alloc_);
         }
-        //===========================end allocator==================================
+        //===========================get_tree_end allocator==================================
 
         //============================exceptions====================================
         class FtLengthError : public std::exception{
@@ -553,9 +553,9 @@ namespace ft {
                 return ("vector");
             }
         };
-        //============================end exceptions=================================
+        //============================get_tree_end exceptions=================================
     };
-    //================================end class vector===============================
+    //================================get_tree_end class vector===============================
 
     //================================non member functions===========================
     template <class T, class Alloc>
@@ -593,7 +593,7 @@ namespace ft {
     void swap (Vector<T,Alloc>& x, Vector<T,Alloc>& y) {
         x.swap(y);
     }
-    //==============================end non member functions=========================
+    //==============================get_tree_end non member functions=========================
 }
 
 namespace std {

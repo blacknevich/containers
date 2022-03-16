@@ -15,7 +15,7 @@ namespace ft {
 
     template<class T>
     struct enable_if<true, T> { typedef T type; };
-//=============================end enable if=================================
+//=============================get_tree_end enable if=================================
 
 //===============================is integral=================================
     template<typename T, bool is_integral_bool>
@@ -66,7 +66,7 @@ namespace ft {
     template<>
     struct is_integral<unsigned long long> : public is_integral_type_bool<unsigned long long, true> {};
 
-//=============================end is integral===============================
+//=============================get_tree_end is integral===============================
 
 //====================lexicographical compare================================
     template <class InputIterator1, class InputIterator2>
@@ -123,7 +123,7 @@ namespace ft {
         typedef const T*                                 pointer;
         typedef const T&                                 reference;
     };
-//=========================end iterator_traits===============================
+//=========================get_tree_end iterator_traits===============================
 //=================================pair======================================
     template <class T1, typename T2>
     struct pair {
@@ -184,7 +184,7 @@ namespace ft {
     bool operator>=( const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs ) {
         return !(lhs < rhs);
     }
-//===============================end pair====================================
+//===============================get_tree_end pair====================================
 
 //===============================iterator====================================
     template <class Category, class T, class Distance = ptrdiff_t,
@@ -197,6 +197,6 @@ namespace ft {
 		typedef Reference	reference;
 		typedef Category 	iterator_category;
 	};
-//=============================end iterator==================================
+//=============================get_tree_end iterator==================================
 }
 #endif //UTILS_HPP

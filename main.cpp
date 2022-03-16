@@ -18,7 +18,7 @@
 //#define lib std
 //#define con vector
 //#define sta stack
-//#define coma Map
+//#define coma map
 class Test {
 public:
     Test() : some_(0) {
@@ -345,9 +345,9 @@ void iterator_test() {
 
     action_announce("dereferencing following iterators");
     lib::con<Test>::iterator show_begin = testy.begin();
-    std::cout << "begin: " << (*show_begin).some_      << std::endl;
+    std::cout << "get_tree_begin: " << (*show_begin).some_      << std::endl;
     lib::con<Test>::iterator show_end = testy.end();
-    std::cout << "end - 1: " << (*(show_end - 1)).some_  << std::endl;
+    std::cout << "get_tree_end - 1: " << (*(show_end - 1)).some_  << std::endl;
     lib::con<Test>::reverse_iterator show_rev_begin = testy.rbegin();
     std::cout << "rbegin: " << (*show_rev_begin).some_     << std::endl;
     lib::con<Test>::reverse_iterator show_rev_end = testy.rend();
@@ -357,15 +357,15 @@ void iterator_test() {
     lib::con<const Test> const_testy(42, 7);
 
     lib::con<Test>::const_iterator show_const_begin = const_testy.begin();
-    std::cout << "begin: " << (*show_const_begin).some_      << std::endl;
+    std::cout << "get_tree_begin: " << (*show_const_begin).some_      << std::endl;
     lib::con<Test>::const_iterator show_const_end = const_testy.end();
-    std::cout << "end - 1: " << (*(show_const_end - 1)).some_  << std::endl;
+    std::cout << "get_tree_end - 1: " << (*(show_const_end - 1)).some_  << std::endl;
     lib::con<Test>::const_reverse_iterator show_rev_const_begin = const_testy.rbegin();
     std::cout << "rbegin: " << (*show_rev_const_begin).some_     << std::endl;
     lib::con<Test>::const_reverse_iterator show_rev_const_end = const_testy.rend();
     std::cout << "rend - 1: " << (*(show_rev_const_end - 1)).some_ << std::endl;
 
-    action_announce("iterator arithmetics end and begin if full");
+    action_announce("iterator arithmetics get_tree_end and get_tree_begin if full");
     std::cout << "difference: " << (show_end - show_begin) << std::endl;
     std::cout << "show_begin + 1: " << (show_begin + 1)->some_ << std::endl;
     std::cout << "1 + show_begin: " << (1 + show_begin)->some_ << std::endl;
@@ -537,7 +537,7 @@ void push_back_test() {
     empty.push_back(7);
     show_vector_info(empty);
 
-    action_announce("push back a val from the end of itself to full");
+    action_announce("push back a val from the get_tree_end of itself to full");
     testy.push_back(testy[41]);
     show_vector_info(testy);
 
@@ -582,14 +582,14 @@ void small_stuff_test() {
     if (testy.data())
         std::cout << "successfully compiled" << std::endl;
 
-    test_announce("swap test");
+    test_announce("swap_trees test");
 
-    action_announce("swap full and small");
+    action_announce("swap_trees full and small");
     testy.swap(small_testy);
     show_vector_info(testy);
     show_vector_info(small_testy);
 
-    action_announce("swap again with std swap(x, y)");
+    action_announce("swap again with std swap_trees(x, y)");
     std::swap(testy, small_testy);
     show_vector_info(testy);
     show_vector_info(small_testy);
@@ -614,38 +614,38 @@ void insert_val_test() {
 
     test_announce("insert value test");
 
-    action_announce("insert a seven to begin of full");
+    action_announce("insert a seven to get_tree_begin of full");
     testy.insert(testy.begin(), 7);
     show_vector_info(testy);
 
-    action_announce("insert a seven to end of above");
+    action_announce("insert a seven to get_tree_end of above");
     testy.insert(testy.end(), 7);
     show_vector_info(testy);
 
-    action_announce("insert a seven to begin of big cap empty");
+    action_announce("insert a seven to get_tree_begin of big cap empty");
     empty_cap.insert(empty_cap.end(), 7);
     show_vector_info(empty_cap);
 
     test_announce("insert value test");
 
-    action_announce("insert numbers to begin of empty");
+    action_announce("insert numbers to get_tree_begin of empty");
     empty.insert(empty.begin(), 7);
     empty.insert(empty.begin(), 42);
     show_vector_info(empty);
 
-    action_announce("insert to begin of above a value from begin of itself");
+    action_announce("insert to begin of above a value from get_tree_begin of itself");
     empty.insert(empty.begin(), empty[0]);
     show_vector_info(empty);
 
-    action_announce("insert to end of above a value from end of itself");
+    action_announce("insert to end of above a value from get_tree_end of itself");
     empty.insert(empty.end(), empty[empty.size() - 1]);
     show_vector_info(empty);
 
-    action_announce("insert to begin of above a value from end of itself");
+    action_announce("insert to get_tree_begin of above a value from get_tree_end of itself");
     empty.insert(empty.begin(), empty[empty.size() - 1]);
     show_vector_info(empty);
 
-    action_announce("insert to end of above a value from begin of itself");
+    action_announce("insert to get_tree_end of above a value from get_tree_begin of itself");
     empty.insert(empty.end(), empty[0]);
     show_vector_info(empty);
 }
@@ -668,38 +668,38 @@ void insert_fill_test() {
 
     test_announce("insert fill test");
 
-    action_announce("insert five sevens to begin of full");
+    action_announce("insert five sevens to get_tree_begin of full");
     testy.insert(testy.begin(), 5, 7);
     show_vector_info(testy);
 
-    action_announce("insert five sevens to end of full");
+    action_announce("insert five sevens to get_tree_end of full");
     testy.insert(testy.end(), 5, 7);
     show_vector_info(testy);
 
-    action_announce("insert five sevens to begin of big cap empty");
+    action_announce("insert five sevens to get_tree_begin of big cap empty");
     empty_cap.insert(empty_cap.begin(), 5, 7);
     show_vector_info(empty_cap);
 
     test_announce("insert fill test");
 
-    action_announce("insert numbers to begin of empty");
+    action_announce("insert numbers to get_tree_begin of empty");
     empty.insert(empty.begin(), 7);
     empty.insert(empty.begin(), 42);
     show_vector_info(empty);
 
-    action_announce("insert to begin of above 5 times value from begin of itself");
+    action_announce("insert to begin of above 5 times value from get_tree_begin of itself");
     empty.insert(empty.begin(), 5,  empty[0]);
     show_vector_info(empty);
 
-    action_announce("insert to end of above 5 times value from end of itself");
+    action_announce("insert to get_tree_end of above 5 times value from end of itself");
     empty.insert(empty.end(), 5,  empty[empty.size() - 1]);
     show_vector_info(empty);
 
-    action_announce("insert to begin of above 5 times value from end of itself");
+    action_announce("insert to get_tree_begin of above 5 times value from get_tree_end of itself");
     empty.insert(empty.begin(), 5,  empty[empty.size() - 1]);
     show_vector_info(empty);
 
-    action_announce("insert to end of above 5 times value from begin of itself");
+    action_announce("insert to get_tree_end of above 5 times value from get_tree_begin of itself");
     empty.insert(empty.end(), 5,  empty[0]);
     show_vector_info(empty);
 }
@@ -727,30 +727,30 @@ void insert_range_test() {
 
     test_announce("insert range test");
 
-    action_announce("insert to end of empty with range from full and arithmetics");
+    action_announce("insert to get_tree_end of empty with range from full and arithmetics");
     empty.insert(empty.end(), testy.begin() + 5, testy.end() - 5);
     show_vector_info(empty);
     show_vector_info(testy);
 
-    action_announce("insert to end of above with range from other");
+    action_announce("insert to get_tree_end of above with range from other");
     testy.insert(testy.end(), small_testy.begin(), small_testy.end());
     show_vector_info(testy);
 
-    action_announce("insert to begin of big cap empty with range from other");
+    action_announce("insert to get_tree_begin of big cap empty with range from other");
     empty_cap.insert(empty_cap.begin(), small_testy.begin(), small_testy.end());
     show_vector_info(empty_cap);
 
     test_announce("insert range test");
 
-    action_announce("insert to begin of small with range from itself");
+    action_announce("insert to get_tree_begin of small with range from itself");
     small_testy.insert(small_testy.begin(), small_testy.begin(), small_testy.end());
     show_vector_info(small_testy);
 
-    action_announce("insert to end of above with range from itself");
+    action_announce("insert to get_tree_end of above with range from itself");
     small_testy.insert(small_testy.end(), small_testy.begin(), small_testy.end());
     show_vector_info(small_testy);
 
-    action_announce("insert to end of above with range from itself and arithmetics");
+    action_announce("insert to get_tree_end of above with range from itself and arithmetics");
     small_testy.insert(small_testy.end(), small_testy.begin() + 3, small_testy.end() - 3);
     show_vector_info(small_testy);
 
@@ -788,9 +788,9 @@ void erase_test() {
     std::cout << "return value: " << testy.erase(testy.begin())->some_ << std::endl;
     show_vector_info(testy);
 
-    action_announce("erase the end from above");
+    action_announce("erase the get_tree_end from above");
     if (testy.erase(testy.end() - 1) == testy.end())
-        std::cout << "return value is end"<< std::endl;
+        std::cout << "return value is get_tree_end"<< std::endl;
     show_vector_info(testy);
 
     action_announce("erase from the 10th element of above");
@@ -805,7 +805,7 @@ void erase_test() {
 
     action_announce("erase full range from above");
     if (testy.erase(testy.begin(), testy.end()) == testy.end())
-        std::cout << "return value is end"<< std::endl;
+        std::cout << "return value is get_tree_end"<< std::endl;
     show_vector_info(testy);
 }
 
@@ -923,7 +923,7 @@ void const_iterators() {
     --const_it;
     std::cout << std::endl;
 
-    action_announce("compare end it with begin it");
+    action_announce("compare get_tree_end it with get_tree_begin it");
     lib::con<const int>::const_iterator const_it_begin(const_testy.begin());
     std::cout << "comparison > : " << (const_it > const_it_begin) << std::endl;
     std::cout << "comparison >= : " << (const_it >= const_it_begin) << std::endl;
@@ -964,7 +964,7 @@ void reverse_iterators() {
     --const_it;
     std::cout << std::endl;
 
-    action_announce("compare end it with begin it but now reverse");
+    action_announce("compare get_tree_end it with get_tree_begin it but now reverse");
     lib::con<const int>::const_reverse_iterator const_it_begin(const_testy.rbegin());
     std::cout << "comparison > : " << (const_it > const_it_begin) << std::endl;
     std::cout << "comparison >= : " << (const_it >= const_it_begin) << std::endl;
@@ -1022,7 +1022,7 @@ void vector_relational_operators() {
 
 void const_vs_non_const_it() {
     test_announce("const and non const iterators comparison");
-    base_state_announce("two vectors and two end iterators: bigger non const and smaller const");
+    base_state_announce("two vectors and two get_tree_end iterators: bigger non const and smaller const");
     lib::con<int> non;
     for (size_t i = 0; i < 42; ++i) {
         non.push_back(2);
@@ -1053,7 +1053,7 @@ void const_vs_non_const_it() {
             if (nonconst_it == const_it || nonconst_it != const_it)
                 std::cout << "successfully compiled " << std::endl;
 
-    action_announce("now same thing but reverse iterators end rbegin");
+    action_announce("now same thing but reverse iterators get_tree_end rbegin");
     lib::con<int>::reverse_iterator       nonconst_rev = non.rbegin();
     lib::con<int>::const_reverse_iterator const_rev = small.rbegin();
 
@@ -1127,16 +1127,18 @@ void map_iterator_test () {
     base_state_announce("Map with 10 range");
     lib::coma<int, Test> testy;
     lib::coma<const int, const Test> const_testy;
+    const_testy.insert(lib::pair<int, Test>(1, Test(1)));
+    const_testy.insert(lib::pair<int, Test>(2, Test(2)));
     balancly_fill_map_with_range(testy, 10);
     print_map_info<int, Test>(testy);
 
-    action_announce("create begin and --end iterators, show them");
+    action_announce("create get_tree_begin and --get_tree_end iterators, show them");
     lib::coma<int, Test>::iterator it(testy.begin());
     lib::coma<int, Test>::iterator end(testy.end());
     --end;
     show_map_iterator(it);
     show_map_iterator(end);
-    action_announce("++begin and show via *");
+    action_announce("++get_tree_begin and show via *");
     ++it;
     show_map_iterator(it);
     std::cout << "show via -> : " << it->first << std::endl;
@@ -1149,7 +1151,7 @@ void map_iterator_test () {
 
     test_announce("Map const iterator test");
 
-    action_announce("take begin const from non const and show it");
+    action_announce("take get_tree_begin const from non const and show it");
     lib::coma<const int, const Test>::const_iterator abominashion(const_testy.begin());
     std::cout << "show key via -> : " << abominashion->first << std::endl;
     std::cout << "show value via * : " << (*abominashion).second.some_ << std::endl;
@@ -1166,15 +1168,15 @@ void map_iterator_test () {
 
     test_announce("Map reverse iterator test");
 
-    action_announce("create reverse begin and reverse --end iterators, show them");
+    action_announce("create reverse get_tree_begin and reverse --get_tree_end iterators, show them");
     lib::coma<int, Test>::reverse_iterator reverse_it(testy.rbegin());
     lib::coma<int, Test>::reverse_iterator reverse_end(testy.rend());
     --reverse_end;
-    std::cout << "show begin key via -> : " << reverse_it->first << std::endl;
-    std::cout << "show begin value via * : " << (*reverse_it).second.some_ << std::endl;
-    std::cout << "show end key via -> : " << reverse_end->first << std::endl;
-    std::cout << "show end value via * : " << (*reverse_end).second.some_ << std::endl;
-    action_announce("reverse ++begin and show");
+    std::cout << "show get_tree_begin key via -> : " << reverse_it->first << std::endl;
+    std::cout << "show get_tree_begin value via * : " << (*reverse_it).second.some_ << std::endl;
+    std::cout << "show get_tree_end key via -> : " << reverse_end->first << std::endl;
+    std::cout << "show get_tree_end value via * : " << (*reverse_end).second.some_ << std::endl;
+    action_announce("reverse ++get_tree_begin and show");
     ++reverse_it;
     std::cout << "show key via -> : " << reverse_it->first << std::endl;
     std::cout << "show value via * : " << (*reverse_it).second.some_ << std::endl;
@@ -1215,12 +1217,12 @@ void map_small_stuff_test() {
     balancly_fill_map_with_range(small_testy, 15);
     print_map_info<int, Test>(small_testy);
 
-    action_announce("swap full and big");
+    action_announce("swap_trees full and big");
     testy.swap(small_testy);
     print_map_info<int, Test>(testy);
     print_map_info<int, Test>(small_testy);
 
-    action_announce("swap again with std swap(x, y)");
+    action_announce("swap again with std swap_trees(x, y)");
     std::swap(testy, small_testy);
     print_map_info<int, Test>(testy);
     print_map_info<int, Test>(small_testy);
@@ -1236,7 +1238,8 @@ void map_small_stuff_test() {
     test_announce("Map small stuff test");
 
     action_announce("max size");
-    std::cout << "max size: " << testy.max_size() << std::endl;
+    if (testy.max_size() > 1000000)
+        std::cout << "Compiled" << std::endl;
 
     action_announce("[] operator test with existing element");
     std::cout << "return from [2]: " << testy[2].some_ << std::endl;
@@ -1335,7 +1338,7 @@ void map_erase_test() {
     lib::coma<int, Test> empty;
     print_map_info<int, Test>(empty);
 
-    action_announce("erase ++begin from full 10");
+    action_announce("erase ++get_tree_begin from full 10");
     testy.erase(++testy.begin());
     print_map_info<int, Test>(testy);
 
@@ -1349,7 +1352,7 @@ void map_erase_test() {
     testy.erase(7);
     print_map_info<int, Test>(testy);
 
-    action_announce("erase range from ++begin to --end from above");
+    action_announce("erase range from ++get_tree_begin to --get_tree_end from above");
     testy.erase(++testy.begin(), --testy.end());
     print_map_info<int, Test>(testy);
 

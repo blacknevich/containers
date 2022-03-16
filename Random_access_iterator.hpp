@@ -28,7 +28,7 @@ namespace ft {
 
         typedef Random_access_iterator<Category,
                 T, Distance, Pointer, Reference>    this_type;
-        //================================end typedef================================
+        //================================get_tree_end typedef================================
 
         //============================constructors==================================
         Random_access_iterator() : arr_(0) {} //default
@@ -37,11 +37,11 @@ namespace ft {
         Random_access_iterator(Random_access_iterator<Category, T, Distance, T *, T &> const &src)
                 : arr_(src.get_arr()) {}//assign_node_no_value constr
         Random_access_iterator(pointer src) : arr_(src) {} //pointer constr
-        //======================end constructors====================================
+        //======================get_tree_end constructors====================================
 
         //============================destructor====================================
         ~Random_access_iterator() {}
-        //============================end destructor================================
+        //============================get_tree_end destructor================================
 
         //============================assignation====================================
         this_type &operator=(Random_access_iterator const &rhs) {
@@ -115,18 +115,18 @@ namespace ft {
         Random_access_iterator operator[](difference_type n) const {
             return arr_[n];
         }
-        //=========================end other operators===============================
+        //=========================get_tree_end other operators===============================
 
         //==============================getter=======================================
         pointer get_arr() const {
             return arr_;
         }
-        //============================end getter=====================================
+        //============================get_tree_end getter=====================================
 
     private:
         pointer arr_;
     };
-    //=========================end random access class===============================
+    //=========================get_tree_end random access class===============================
 
     //=========================relational operators===============================
 

@@ -17,15 +17,15 @@ namespace ft
 		typedef T			                            value_type;
 		typedef Container	                            container_type;
 		typedef typename container_type::size_type		size_type;
-        //================================end typedef===============================
+        //================================get_tree_end typedef===============================
         //=============================private variables============================
     protected:
 		container_type cont;
-        //===========================end private variables==========================
+        //===========================get_tree_end private variables==========================
 	public:
         //============================constructors==================================
 		explicit Stack (const container_type& c = container_type()) : cont(c) {}
-        //======================end constructors====================================
+        //======================get_tree_end constructors====================================
         Stack& operator=( const Stack& other ) {
             cont = other.cont;
         }
@@ -59,7 +59,7 @@ namespace ft
         {
             cont.pop_back();
         }
-        //=======================end member functions===============================
+        //=======================get_tree_end member functions===============================
         //========================non member overloads==============================
 
 		friend bool operator==(const Stack<T,Container>& lhs, const Stack<T,Container>& rhs)
@@ -91,7 +91,7 @@ namespace ft
 		{
 			return (lhs.cont >= rhs.cont);
 		}
-        //======================end non member overloads============================
+        //======================get_tree_end non member overloads============================
 	};
 }
 
